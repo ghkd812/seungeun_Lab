@@ -5,7 +5,7 @@ library(arulesViz)
 library('data.table')
 
 rm(list = ls())
-con = odbcConnect('TEST_DB', uid='sa', pwd='ckawhgdms4000')    #182.162.173.89
+
 
 netflix_movie_order <- sqlQuery(con, "SELECT TOP 1000 MOVIE_ID, CUS_ID FROM tmp_nfx_ibcf_data ORDER BY NEWID();") #고객id정렬 상태로 
 as.data.frame(netflix_movie_order)
