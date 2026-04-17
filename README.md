@@ -1,2 +1,109 @@
-# seungeun_Lab
-analysis NLP, RecommendSystem etc
+# 👩‍💻 여승은 (Seungeun Yeo) — Portfolio Lab
+
+> IT 기획 · 데이터 분석 · BA · PM | 여행 / 글로벌 e-커머스 / 엔터 도메인 8년+
+
+[![Portfolio](https://img.shields.io/badge/Portfolio-GitHub%20Pages-6366f1?style=flat-square&logo=github)](https://ghkd812.github.io/seungeun_Lab/)
+[![Email](https://img.shields.io/badge/Email-yeoeun02%40naver.com-ea4335?style=flat-square&logo=gmail)](mailto:yeoeun02@naver.com)
+
+---
+
+## 🙋‍♀️ About
+
+SQL·Python·R 기반 데이터 분석부터 NLP 챗봇·추천시스템 개발, LG.COM 글로벌 SI 국가 PM, SM C&C 출장·공연 예약 시스템 기획까지 **데이터와 기획으로 비즈니스 문제를 해결**합니다.
+
+| 항목 | 내용 |
+|------|------|
+| **현 직장** | SM C&C IT개발운영팀 · 기획자 / PM (2025.07~) |
+| **전 직장** | ㈜지엠솔루션 LG CNS 협력사 · 책임연구원 BA (2022~2025) |
+| **전 직장** | 참좋은여행㈜ IT기획팀 · 계장 데이터분석&기획 (2017~2022) |
+| **기술 스택** | Python · R · SQL · NLP · ML · Claude/GPT API |
+
+---
+
+## 📁 Repository Structure
+
+```
+seungeun_Lab/
+│
+├── 🤖 AI & NLP
+│   ├── LDA_TOPIC_MODELING/          # LDA 토픽 모델링 + 감성 분석
+│   ├── Chatbot/                     # 텔레그램 여행 챗봇 (NLP + pymssql)
+│   └── SMALLMovieFriendBot/         # 영화 추천 챗봇 (BotHub)
+│
+├── 📊 추천 시스템 & ML
+│   ├── CUVE_상품추천시스템(실제서비스)/  # 실제 서비스 반영 추천시스템
+│   ├── 상품추천관련스터디/              # Apriori · CF · DT · 클러스터링
+│   └── 수요예측분석/                  # 시계열 수요 예측 (Scikit-learn)
+│
+├── 📈 데이터 분석
+│   ├── 자사전체고객데이터분석및동향분석/  # SQL 20종+ · 고객 통계 분석
+│   ├── 라오스지역분석/                 # 지역 관광 추세 SQL 분석
+│   ├── 여행트렌드분석/                 # 여행 트렌드 SQL + PPT
+│   ├── 인스타크롤링/                   # 인스타그램 해시태그 분석
+│   ├── Restaurant_분석결과/           # 레스토랑 EDA
+│   └── 자전거/                        # 자전거 수요 패턴 분석
+│
+├── 🌍 크롤링 & 경쟁사 분석
+│   └── 경쟁사크롤링비교분석/            # 노랑풍선 5개 지역 (Scrapy)
+│
+├── 📋 기획 문서
+│   ├── 기획문서모음/
+│   │   ├── 글로벌공연예약사이트개편/    # SM C&C 글로벌패키지 개편 기획
+│   │   ├── 한화청약신청사이트(내부용)/  # 캐롯·한화 보험 청약 시스템 설계
+│   │   ├── 기획운영/                  # 투어익스프레스·SMC&C 운영 기획
+│   │   ├── 여행가이드봇시나리오기획/    # 큐비 챗봇 시나리오
+│   │   ├── 여행트렌드페이지모음/        # 여행 트렌드 기획안 6종
+│   │   └── 트렌드페이지기획/           # CUVE 모바일 화면정의서
+│   └── 블록체인발표자료/               # 블록체인 기술 리서치
+│
+└── 🎮 기타
+    └── (Pygame 게임 스터디 등)
+```
+
+---
+
+## 🛠️ Skills
+
+**언어 & 분석**
+`Python` `R` `SQL (MSSQL·MySQL)` `Pandas` `Scikit-learn` `Gensim` `KoNLPy` `Scrapy`
+
+**AI · NLP · ML**
+`LDA 토픽 모델링` `감성 분석` `추천 시스템` `시계열 예측` `클러스터링` `Claude API` `GPT API`
+
+**IT 기획 · BA · PM**
+`Product Planning` `Business Analysis` `화면정의서` `GA4 Tagging` `Data Layer 설계` `Coveo 검색엔진` `글로벌 SI`
+
+---
+
+## 💼 주요 프로젝트
+
+### SM C&C (2025.07~현재)
+| 프로젝트 | 설명 |
+|----------|------|
+| [글로벌패키지 공연·숙박 사이트 개편](기획문서모음/글로벌공연예약사이트개편/) | SM 아티스트 공연 예약 글로벌 사이트 전면 개편 기획 (V3.1) |
+| [캐롯·한화 보험 청약 시스템](기획문서모음/한화청약신청사이트(내부용)/) | 출장 여행자보험 내부 직원용 청약신청 사이트 설계 |
+| [BTMS·투어익스프레스 운영 기획](기획문서모음/기획운영/) | 출장예약시스템 유지보수 및 고객사 맞춤형 사이트 설계 |
+
+### LG CNS 협력사 지엠솔루션 (2022~2025)
+| 프로젝트 | 설명 |
+|----------|------|
+| GOC 개발 기획 | 전 국가 LG.COM 공통 이슈·신규 기능 기획~배포 핸들링 |
+| BA — 해외 법인 요구사항 | Product·Spec·Search·GA4 관련 기획·QC·배포 리딩 |
+| 베트남·호주 국가 PM | 현지 출장·요구사항 수집·기획·개발 협업 |
+
+### 참좋은여행 (2017~2022)
+| 프로젝트 | 설명 |
+|----------|------|
+| [CUVE 상품추천시스템](CUVE_상품추천시스템(실제서비스)/) | 실제 서비스 반영된 Apriori+CF 기반 추천시스템 |
+| [경쟁사 크롤링 비교분석](경쟁사크롤링비교분석/) | 노랑풍선 유럽·일본·태국·필리핀·홍콩 5개 지역 분석 |
+| [고객 데이터 통계 분석](자사전체고객데이터분석및동향분석/) | SQL 20종+ 고객 기초통계·동향 분석 임원 리포팅 |
+| [LDA 토픽 모델링](LDA_TOPIC_MODELING/) | 고객 리뷰 LDA 분류 + 감성 분석 + 키워드 네트워크 |
+| [수요 예측 분석](수요예측분석/) | 시계열 기반 여행 상품 수요 예측 모델 |
+
+---
+
+## 📬 Contact
+
+- **Email** : yeoeun02@naver.com
+- **Phone** : 010-4088-0659
+- **GitHub** : [github.com/ghkd812/seungeun_Lab](https://github.com/ghkd812/seungeun_Lab)

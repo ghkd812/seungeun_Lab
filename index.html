@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>여승은 — Portfolio</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --primary: #6366f1;
+      --primary-light: #eef2ff;
+      --primary-dark: #4338ca;
+      --primary-glow: rgba(99,102,241,.18);
+      --accent: #ec4899;
+      --bg: #f6f7fb;
+      --surface: #ffffff;
+      --border: #e5e7eb;
+      --text: #0f172a;
+      --text-muted: #64748b;
+      --radius: 14px;
+      --shadow: 0 1px 4px rgba(0,0,0,.06), 0 4px 20px rgba(0,0,0,.04);
+      --shadow-hover: 0 8px 28px rgba(99,102,241,.16), 0 2px 8px rgba(0,0,0,.06);
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif; background: var(--bg); color: var(--text); line-height: 1.65; }
+
+    /* NAV */
+    nav { position: sticky; top: 0; z-index: 200; background: rgba(255,255,255,.9); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); padding: 0 2.5rem; display: flex; align-items: center; justify-content: space-between; height: 62px; }
+    .nav-logo { font-weight: 800; font-size: 1.1rem; letter-spacing: -.5px; background: linear-gradient(135deg, var(--primary), var(--accent)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .nav-links { display: flex; gap: 1.6rem; list-style: none; }
+    .nav-links a { text-decoration: none; color: var(--text-muted); font-size: .875rem; font-weight: 500; transition: color .2s; }
+    .nav-links a:hover { color: var(--primary); }
+
+    /* HERO */
+    .hero-wrap { background: linear-gradient(160deg, #ffffff 0%, #eef2ff 55%, #fdf2f8 100%); border-bottom: 1px solid var(--border); }
+    .hero { max-width: 980px; margin: 0 auto; padding: 5.5rem 2rem 4.5rem; display: grid; grid-template-columns: 1fr auto; gap: 3rem; align-items: center; }
+    .hero-eyebrow { display: inline-flex; align-items: center; gap: .5rem; font-size: .76rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--primary); background: var(--primary-light); padding: .28rem .85rem; border-radius: 99px; margin-bottom: 1rem; }
+    .hero-eyebrow::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--primary); }
+    .hero-text h1 { font-size: 2.7rem; font-weight: 800; line-height: 1.15; letter-spacing: -1.5px; }
+    .hero-text h1 em { font-style: normal; color: var(--primary); }
+    .hero-badges { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: 1rem; }
+    .hero-badge { font-size: .77rem; font-weight: 600; padding: .26rem .72rem; border-radius: 6px; background: var(--surface); border: 1.5px solid var(--border); color: var(--text-muted); }
+    .hero-bio { margin-top: 1.3rem; color: var(--text-muted); font-size: .96rem; max-width: 500px; line-height: 1.8; }
+    .hero-actions { margin-top: 1.8rem; display: flex; gap: .75rem; flex-wrap: wrap; }
+    .btn { display: inline-flex; align-items: center; gap: .45rem; padding: .58rem 1.25rem; border-radius: 9px; font-size: .875rem; font-weight: 600; text-decoration: none; transition: all .2s; cursor: pointer; border: none; }
+    .btn-primary { background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: #fff; box-shadow: 0 2px 12px var(--primary-glow); }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 20px var(--primary-glow); }
+    .btn-outline { background: var(--surface); color: var(--primary); border: 1.5px solid var(--primary); }
+    .btn-outline:hover { background: var(--primary-light); transform: translateY(-1px); }
+    .hero-avatar { width: 165px; height: 165px; border-radius: 50%; background: linear-gradient(135deg, var(--primary), var(--accent)); display: flex; align-items: center; justify-content: center; font-size: 4.2rem; flex-shrink: 0; box-shadow: 0 12px 40px rgba(99,102,241,.28); }
+
+    /* STATS */
+    .stats-bar { background: var(--surface); border-bottom: 1px solid var(--border); }
+    .stats-inner { max-width: 980px; margin: 0 auto; padding: 1.3rem 2rem; display: flex; justify-content: space-around; gap: 1rem; flex-wrap: wrap; }
+    .stat { text-align: center; }
+    .stat-num { font-size: 1.5rem; font-weight: 800; letter-spacing: -1px; background: linear-gradient(135deg, var(--primary), var(--accent)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .stat-label { font-size: .75rem; color: var(--text-muted); font-weight: 500; margin-top: .1rem; }
+
+    /* SECTION */
+    section { max-width: 980px; margin: 0 auto; padding: 4rem 2rem; }
+    .section-header { display: flex; align-items: center; gap: .8rem; margin-bottom: 2.2rem; padding-bottom: .9rem; border-bottom: 2px solid var(--primary-light); }
+    .section-icon { width: 34px; height: 34px; border-radius: 9px; background: var(--primary-light); display: flex; align-items: center; justify-content: center; font-size: 1rem; }
+    .section-title { font-size: 1.4rem; font-weight: 800; letter-spacing: -.5px; }
+
+    /* SKILLS */
+    .skills-block { margin-bottom: 1.8rem; }
+    .skills-block-title { font-size: .75rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--text-muted); margin-bottom: .75rem; }
+    .skills-row { display: flex; flex-wrap: wrap; gap: .45rem; }
+    .skill-pill { padding: .36rem .95rem; border-radius: 99px; font-size: .81rem; font-weight: 600; border: 1.5px solid var(--border); background: var(--surface); color: var(--text-muted); transition: all .2s; }
+    .skill-pill:hover { border-color: var(--primary); color: var(--primary); background: var(--primary-light); transform: translateY(-1px); }
+    .skill-pill.top { background: var(--primary-light); color: var(--primary); border-color: #c7d2fe; }
+
+    /* TIMELINE */
+    .timeline { display: flex; flex-direction: column; }
+    .tl-item { display: grid; grid-template-columns: 160px 1fr; gap: 0 2.2rem; position: relative; padding-bottom: 2.8rem; }
+    .tl-item:last-child { padding-bottom: 0; }
+    .tl-item::after { content: ''; position: absolute; left: calc(160px + 1.1rem - 1px); top: 10px; bottom: 0; width: 2px; background: linear-gradient(to bottom, #c7d2fe, transparent); }
+    .tl-item:last-child::after { display: none; }
+    .tl-date { font-size: .79rem; color: var(--text-muted); font-weight: 600; text-align: right; padding-top: 3px; line-height: 1.5; }
+    .tl-body { position: relative; padding-left: 1.5rem; }
+    .tl-dot { position: absolute; left: -5px; top: 5px; width: 12px; height: 12px; border-radius: 50%; background: var(--primary); border: 2.5px solid #fff; box-shadow: 0 0 0 2px var(--primary); }
+    .tl-company { font-weight: 800; font-size: 1rem; margin-bottom: .2rem; }
+    .tl-role { display: inline-block; font-size: .74rem; font-weight: 700; background: var(--primary-light); color: var(--primary); padding: .15rem .6rem; border-radius: 5px; margin-bottom: .7rem; }
+    .tl-role.current { background: #dcfce7; color: #166534; }
+    .tl-list { list-style: none; display: flex; flex-direction: column; gap: .28rem; }
+    .tl-list li { font-size: .84rem; color: var(--text-muted); display: flex; gap: .55rem; align-items: flex-start; line-height: 1.55; }
+    .tl-list li::before { content: '▸'; color: var(--primary); flex-shrink: 0; font-size: .73rem; margin-top: 2px; }
+
+    /* CARDS */
+    .category { margin-bottom: 3.2rem; }
+    .category-title { font-size: .84rem; font-weight: 800; color: var(--primary); margin-bottom: 1rem; display: flex; align-items: center; gap: .5rem; text-transform: uppercase; letter-spacing: .06em; }
+    .category-title::before { content: ''; width: 4px; height: 1.1em; background: linear-gradient(to bottom, var(--primary), var(--accent)); border-radius: 2px; }
+    .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(265px, 1fr)); gap: 1.15rem; }
+    .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.4rem; box-shadow: var(--shadow); transition: all .25s; display: flex; flex-direction: column; gap: .5rem; text-decoration: none; color: inherit; }
+    .card:hover { box-shadow: var(--shadow-hover); transform: translateY(-4px); border-color: #c7d2fe; }
+    .card.no-hover:hover { transform: none; box-shadow: var(--shadow); border-color: var(--border); }
+    .card-header { display: flex; align-items: flex-start; gap: .7rem; }
+    .card-icon { width: 40px; height: 40px; border-radius: 9px; background: var(--primary-light); display: flex; align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0; }
+    .card-icon.pink { background: #fdf2f8; }
+    .card-icon.green { background: #f0fdf4; }
+    .card-icon.amber { background: #fffbeb; }
+    .card-icon.teal { background: #f0fdfa; }
+    .card-icon.rose { background: #fff1f2; }
+    .card-name { font-weight: 700; font-size: .95rem; line-height: 1.35; margin-top: .2rem; }
+    .card-desc { font-size: .83rem; color: var(--text-muted); line-height: 1.65; flex: 1; }
+    .card-tags { display: flex; flex-wrap: wrap; gap: .32rem; margin-top: .35rem; }
+    .tag { font-size: .7rem; font-weight: 700; padding: .18rem .52rem; border-radius: 4px; background: var(--bg); color: var(--text-muted); border: 1px solid var(--border); }
+    .tag.py  { background: #fefce8; color: #92400e; border-color: #fde68a; }
+    .tag.r   { background: #f0fdf4; color: #166534; border-color: #bbf7d0; }
+    .tag.sql { background: #eff6ff; color: #1e40af; border-color: #bfdbfe; }
+    .tag.nlp { background: #fdf4ff; color: #7e22ce; border-color: #e9d5ff; }
+    .tag.ai  { background: #fff7ed; color: #9a3412; border-color: #fed7aa; }
+    .tag.plan{ background: #f0fdfa; color: #065f46; border-color: #99f6e4; }
+    .tag.lg  { background: #fff1f2; color: #9f1239; border-color: #fecdd3; }
+    .tag.sm  { background: #fdf4ff; color: #6b21a8; border-color: #d8b4fe; }
+    .card-cta { display: inline-flex; align-items: center; gap: .3rem; font-size: .72rem; font-weight: 700; color: var(--primary); margin-top: auto; padding-top: .5rem; opacity: 0; transition: opacity .2s; }
+    .card:hover .card-cta { opacity: 1; }
+    .card.featured { border: 2px solid var(--primary); background: linear-gradient(140deg, #f8f7ff 0%, #eef2ff 100%); }
+
+    /* EDUCATION / CERT */
+    .info-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem; }
+    .info-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.2rem 1.4rem; box-shadow: var(--shadow); }
+    .info-label { font-size: .72rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: .06em; margin-bottom: .4rem; }
+    .info-title { font-weight: 700; font-size: .95rem; margin-bottom: .2rem; }
+    .info-sub { font-size: .82rem; color: var(--text-muted); }
+
+    /* CONTACT */
+    .contact-box { background: linear-gradient(135deg, var(--primary) 0%, #818cf8 50%, var(--accent) 100%); border-radius: 20px; padding: 2.8rem 2.5rem; color: #fff; text-align: center; }
+    .contact-box h3 { font-size: 1.5rem; font-weight: 800; margin-bottom: .5rem; }
+    .contact-box p { opacity: .85; margin-bottom: 1.8rem; font-size: .95rem; }
+    .contact-links { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
+    .contact-link { display: inline-flex; align-items: center; gap: .5rem; padding: .6rem 1.5rem; border-radius: 9px; font-weight: 700; font-size: .88rem; text-decoration: none; background: rgba(255,255,255,.15); color: #fff; border: 1.5px solid rgba(255,255,255,.35); transition: all .2s; }
+    .contact-link:hover { background: rgba(255,255,255,.28); transform: translateY(-2px); }
+
+    /* FOOTER */
+    footer { text-align: center; padding: 2.2rem; font-size: .79rem; color: var(--text-muted); border-top: 1px solid var(--border); }
+
+    /* RESPONSIVE */
+    @media (max-width: 640px) {
+      .hero { grid-template-columns: 1fr; text-align: center; padding: 3rem 1.5rem 2.8rem; }
+      .hero-avatar { margin: 0 auto; order: -1; }
+      .hero-eyebrow, .hero-badges, .hero-actions { justify-content: center; }
+      .hero-text h1 { font-size: 2rem; }
+      nav { padding: 0 1rem; }
+      .nav-links { gap: 1rem; }
+      .tl-item { grid-template-columns: 1fr; }
+      .tl-item::after { display: none; }
+      .tl-date { text-align: left; margin-bottom: .25rem; }
+      .tl-body { padding-left: 0; }
+      .tl-dot { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">SY · Lab</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero-wrap">
+  <div class="hero" id="about">
+    <div class="hero-text">
+      <div class="hero-eyebrow">IT Planner · Data Analyst · BA &amp; PM</div>
+      <h1>안녕하세요,<br><em>여승은</em>입니다.</h1>
+      <div class="hero-badges">
+        <span class="hero-badge">여행 / 글로벌 e-커머스 / 엔터</span>
+        <span class="hero-badge">8년+ 실무 경험</span>
+        <span class="hero-badge">SQL · Python · R</span>
+        <span class="hero-badge">NLP · 추천시스템 · AI 챗봇</span>
+        <span class="hero-badge">글로벌 SI · 국가 PM</span>
+      </div>
+      <p class="hero-bio">
+        여행사·글로벌 e-커머스·엔터 도메인에서 IT 기획, BA, 국가 PM, 데이터 분석을 경험했습니다.
+        SQL·Python·R 기반 데이터 분석부터 NLP 챗봇·추천시스템 개발,
+        LG.COM 글로벌 SI, SM C&amp;C 출장·공연 예약 시스템 기획까지
+        데이터와 기획으로 비즈니스 문제를 해결합니다.
+      </p>
+      <div class="hero-actions">
+        <a href="https://github.com/ghkd812/seungeun_Lab" target="_blank" class="btn btn-primary">
+          <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222 0 1.606-.015 2.896-.015 3.286 0 .315.216.694.825.576C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12z"/></svg>
+          GitHub
+        </a>
+        <a href="mailto:yeoeun02@naver.com" class="btn btn-outline">
+          <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
+          Email
+        </a>
+      </div>
+    </div>
+    <div class="hero-avatar">👩‍💻</div>
+  </div>
+</div>
+
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="stats-inner">
+    <div class="stat"><div class="stat-num">8년+</div><div class="stat-label">IT 기획 · 데이터 분석</div></div>
+    <div class="stat"><div class="stat-num">3개사</div><div class="stat-label">여행 · 글로벌 e-커머스 · 엔터</div></div>
+    <div class="stat"><div class="stat-num">2개국</div><div class="stat-label">글로벌 SI PM (베트남 · 호주)</div></div>
+    <div class="stat"><div class="stat-num">20+</div><div class="stat-label">개인 프로젝트 &amp; 기획 결과물</div></div>
+  </div>
+</div>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-header">
+    <div class="section-icon">⚡</div>
+    <h2 class="section-title">Skills</h2>
+  </div>
+
+  <div class="skills-block">
+    <div class="skills-block-title">언어 &amp; 분석 도구</div>
+    <div class="skills-row">
+      <span class="skill-pill top">Python</span>
+      <span class="skill-pill top">R</span>
+      <span class="skill-pill top">SQL (MSSQL · MySQL)</span>
+      <span class="skill-pill">Pandas / Scikit-learn</span>
+      <span class="skill-pill">Gensim / KoNLPy</span>
+      <span class="skill-pill">Scrapy / BeautifulSoup</span>
+      <span class="skill-pill">Jupyter Notebook</span>
+    </div>
+  </div>
+
+  <div class="skills-block">
+    <div class="skills-block-title">AI · NLP · ML</div>
+    <div class="skills-row">
+      <span class="skill-pill top">NLP / 자연어처리</span>
+      <span class="skill-pill top">LDA 토픽 모델링</span>
+      <span class="skill-pill">감성 분석</span>
+      <span class="skill-pill">추천 시스템 (Apriori · CF)</span>
+      <span class="skill-pill">시계열 수요 예측</span>
+      <span class="skill-pill">클러스터링</span>
+      <span class="skill-pill">의사결정나무</span>
+      <span class="skill-pill">Claude / GPT API</span>
+      <span class="skill-pill">Chatbot 개발</span>
+    </div>
+  </div>
+
+  <div class="skills-block">
+    <div class="skills-block-title">IT 기획 · BA · PM</div>
+    <div class="skills-row">
+      <span class="skill-pill top">Product Planning</span>
+      <span class="skill-pill top">Business Analysis (BA)</span>
+      <span class="skill-pill top">Project Management (PM)</span>
+      <span class="skill-pill">화면정의서 · 스토리보드</span>
+      <span class="skill-pill">요구사항 분석</span>
+      <span class="skill-pill">GA4 Tagging</span>
+      <span class="skill-pill">Data Layer 설계</span>
+      <span class="skill-pill">Coveo 검색엔진</span>
+      <span class="skill-pill">글로벌 SI · 국가 PM</span>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-header">
+    <div class="section-icon">💼</div>
+    <h2 class="section-title">Experience</h2>
+  </div>
+  <div class="timeline">
+
+    <!-- SM C&C -->
+    <div class="tl-item">
+      <div class="tl-date">2025.07 — 현재</div>
+      <div class="tl-body">
+        <div class="tl-dot"></div>
+        <div class="tl-company">SM C&amp;C (SM 엔터 계열사)</div>
+        <span class="tl-role current">IT개발운영팀 팀원 · 기획자 / PM</span>
+        <ul class="tl-list">
+          <li>BTMS 여행 출장예약시스템 백오피스·프론트 유지보수 및 신규 개편 기획 (화면·로직 설계)</li>
+          <li>글로벌패키지 — SM 소속 아티스트 공연·숙박 연계 글로벌 예약 사이트 전면 개편 기획</li>
+          <li>캐롯·한화 손해보험 청약신청 내부 직원용 사이트 설계 및 기능 개선</li>
+          <li>각 고객사별 출장 사이트 맞춤형 설계·기획 (투어익스프레스 등)</li>
+          <li>각 고객사별 호텔 숙박 예약 복지몰 기획·관리</li>
+          <li>기획자 단독으로 다수 프로젝트 동시 운영, 요구사항 수집·기획·개발·QC 전 과정 리딩</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 지엠솔루션 -->
+    <div class="tl-item">
+      <div class="tl-date">2022.06 — 2025.07</div>
+      <div class="tl-body">
+        <div class="tl-dot"></div>
+        <div class="tl-company">㈜지엠솔루션 (LG CNS 협력사)</div>
+        <span class="tl-role">마케팅플랫폼팀 책임연구원 · BA · 국가 PM</span>
+        <ul class="tl-list">
+          <li>GOC 조직 기획자 — 전 국가 공통 이슈·DEFECT F/U, 신규 기획 검토·승인·개발~배포 전 과정 핸들링</li>
+          <li>HOME/PLP, PDP/PBP, ADMIN, PRODUCT/SPEC, SEARCH, B2B/COMPLIANCE, GNB/Filter 영역 개발 기획</li>
+          <li>Product·Spec·Search·Data Layer·GA4 Tagging BA — 해외 법인 요구사항 수집·기획·QC·배포 리딩</li>
+          <li>LG.COM 해외 신규 SI 프로젝트 <strong>베트남·호주 국가 PM</strong> — 현지 출장, 요구사항 수집, 기획·개발 협업</li>
+          <li>전자제품 e-커머스 상품 스펙 데이터·서드파티 API 이슈 담당, Coveo 검색엔진 이슈 관리</li>
+          <li>데이터레이어 설계 및 삽입, GA4 태깅 요구사항 수집 및 분석 환경 구축</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 참좋은여행 정규직 -->
+    <div class="tl-item">
+      <div class="tl-date">2018.01 — 2022.06</div>
+      <div class="tl-body">
+        <div class="tl-dot"></div>
+        <div class="tl-company">참좋은여행㈜</div>
+        <span class="tl-role">IT기획팀 계장 · 데이터 분석 &amp; 기획</span>
+        <ul class="tl-list">
+          <li>SQL 데이터 추출·분석, 비정형(텍스트) NLP 분석 및 임원 리포팅 / 분기별 통계 백서 작성</li>
+          <li>라오스·여행트렌드 등 지역별 관광 추세 데이터 분석 PPT 단독 작성 및 임원 보고</li>
+          <li>R &amp; SQL 활용 여행 상품 추천시스템 업그레이드 (Apriori + 협업 필터링 + 실제 서비스 반영)</li>
+          <li>Scrapy 기반 경쟁사(노랑풍선) 크롤링 — 유럽·일본·태국·필리핀·홍콩 5개 지역 비교 분석</li>
+          <li>KoNLPy · MongoDB 활용 큐비 여행 가이드 챗봇 기획·개발 (시나리오 설계 포함)</li>
+          <li>LDA 토픽 모델링, 감성 분석, 수요 예측 (시계열), 고객 데이터 통합·병합 기획</li>
+          <li>호텔 개편 PC·모바일 화면정의서 단독 기획, 참좋은마켓 ERP·커머스 프로세스 기획</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 참좋은여행 인턴 -->
+    <div class="tl-item">
+      <div class="tl-date">2017.07 — 2018.01</div>
+      <div class="tl-body">
+        <div class="tl-dot"></div>
+        <div class="tl-company">참좋은여행㈜</div>
+        <span class="tl-role">IT기획팀 인턴</span>
+        <ul class="tl-list">
+          <li>신규 모바일 앱 기획 서포트, 경쟁사 동향 및 신규 서비스 조사</li>
+          <li>에이스카운터를 통한 유입 분석 및 아이디어 제시</li>
+          <li>홈페이지 / 모바일 QA 서포트</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-header">
+    <div class="section-icon">🚀</div>
+    <h2 class="section-title">Projects</h2>
+  </div>
+
+  <!-- SM C&C 기획 -->
+  <div class="category">
+    <div class="category-title">SM C&amp;C — IT 기획 &amp; 서비스 설계</div>
+    <div class="cards">
+
+      <a class="card" href="https://github.com/ghkd812/seungeun_Lab/tree/main/기획문서모음/글로벌공연예약사이트개편" target="_blank" rel="noopener noreferrer">
+        <div class="card-header">
+          <div class="card-icon pink">🎤</div>
+          <div class="card-name">글로벌패키지 공연·숙박 예약 사이트 개편</div>
+        </div>
+        <p class="card-desc">SM 소속 아티스트 공연 및 숙박 연계 글로벌 예약 사이트 전면 개편 기획. 10년 이상 된 구 사이트를 신규 UX로 재설계. V3.1 기획안 완성.</p>
+        <div class="card-tags">
+          <span class="tag sm">SM C&amp;C</span><span class="tag plan">기획</span><span class="tag">UI/UX</span><span class="tag">글로벌</span>
+        </div>
+        <span class="card-cta">↗ GitHub에서 보기</span>
+      </a>
+
+      <a class="card" href="https://github.com/ghkd812/seungeun_Lab/tree/main/기획문서모음/한화청약신청사이트(내부용)" target="_blank" rel="noopener noreferrer">
+        <div class="card-header">
+          <div class="card-icon teal">🛡️</div>
+          <div class="card-name">캐롯·한화 보험 청약신청 사이트 설계</div>
+        </div>
+        <p class="card-desc">출장 고객사 직원용 여행자 보험 청약신청 내부 사이트 설계·기능 개선. 캐롯손해보험 V2.1, 한화손해보험 매뉴얼 포함.</p>
+        <div class="card-tags">
+          <span class="tag sm">SM C&amp;C</span><span class="tag plan">설계</span><span class="tag">보험</span><span class="tag">내부 시스템</span>
+        </div>
+        <span class="card-cta">↗ GitHub에서 보기</span>
+      </a>
+
+      <a class="card" href="https://github.com/ghkd812/seungeun_Lab/tree/main/기획문서모음/기획운영" target="_blank" rel="noopener noreferrer">
+        <div class="card-header">
+          <div class="card-icon amber">✈️</div>
+          <div class="card-name">BTMS 출장예약시스템 &amp; 투어익스프레스 운영 기획</div>
+        </div>
+        <p class="card-desc">고객사별 맞춤형 출장예약시스템(BTMS) 화면·로직 설계. 투어익스프레스 사이트 유지보수 및 예약 페이지·로그인 오류 개선 기획.</p>
+        <div class="card-tags">
+          <span class="tag sm">SM C&amp;C</span><span class="tag plan">기획</span><span class="tag">출장시스템</span><span class="tag">운영</span>
+        </div>
+        <span class="card-cta">↗ GitHub에서 보기</span>
+      </a>
+
+    </div>
+  </div>
+
+  <!-- LG CNS -->
+  <div class="category">
+    <div class="category-title">LG CNS — 글로벌 IT 기획 &amp; BA (지엠솔루션)</div>
+    <div class="cards">
+
+      <div class="card no-hover">
+        <div class="card-header">
+          <div class="card-icon">🌐</div>
+          <div class="card-name">GOC 개발 기획 — 글로벌 공통 이슈 관리</div>
+        </div>
+        <p class="card-desc">전 국가 LG.COM 공통 이슈·DEFECT F/U 및 신규 기능 기획. HOME/PLP/PDP/SEARCH/GNB 등 MKT 전 영역 기획~배포 핸들링.</p>
+        <div class="card-tags">
+          <span class="tag lg">IT기획</span><span class="tag lg">글로벌 운영</span><span class="tag plan">GOC</span>
+        </div>
+      </div>
+
+      <div class="card no-hover">
+        <div class="card-header">
+          <div class="card-icon amber">📊</div>
+          <div class="card-name">Business Analyst (BA) — 해외 법인 요구사항</div>
+        </div>
+        <p class="card-desc">Product·Spec·Search·Data Layer·GA4 Tagging 관련 해외 법인 요구사항 수집·분석·1차 기획안 작성. 기획·개발·QC·배포 전 과정 리딩.</p>
+        <div class="card-tags">
+          <span class="tag lg">BA</span><span class="tag plan">기획</span><span class="tag">e-커머스</span><span class="tag">GA4</span>
+        </div>
+      </div>
+
+      <div class="card no-hover">
+        <div class="card-header">
+          <div class="card-icon pink">✈️</div>
+          <div class="card-name">국가 PM — 베트남·호주 LG.COM SI 프로젝트</div>
+        </div>
+        <p class="card-desc">LG.COM 해외 신규 SI 프로젝트 국가 PM 담당. 현지 출장·브리핑·요구사항 수집, 각국 특성·법적 이슈 검토, 기획~개발 협업 진행.</p>
+        <div class="card-tags">
+          <span class="tag lg">국가 PM</span><span class="tag lg">SI</span><span class="tag">베트남</span><span class="tag">호주</span>
+        </div>
+      </div>
+
+      <div class="card no-hover">
+        <div class="card-header">
+          <div class="card-icon green">🔎</div>
+          <div class="card-name">Coveo 검색엔진 &amp; Data Layer 설계</div>
+        </div>
+        <p class="card-desc">Coveo 검색엔진 이슈 관리·개선 기획. GA4 태깅 요구사항 수집·분석 환경 구축, 데이터레이어 설계 및 삽입 담당.</p>
+        <div class="card-tags">
+          <span class="tag lg">Coveo</span><span class="tag">GA4</span><span class="tag">Data Layer</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- NLP & Text Mining -->
+  <div class="category">
+    <div class="category-title">NLP &amp; Text Mining</div>
+    <div class="cards">
+
+      <a class="card" href="https://github.com/ghkd812/seungeun_Lab/tree/main/LDA_TOPIC_MODELING" target="_blank" rel="noopener noreferrer">
+        <div class="card-header">
+          <div class="card-icon">🔍</div>
+          <div class="card-name">LDA 토픽 모델링</div>
+        </div>
+        <p class="card-desc">여행사 고객 리뷰 데이터 LDA 토픽 분류 + 키워드 네트워크 시각화. 불용어 처리·명사 추출 파이프라인 구축. 결과 PPT 포함.</p>
+        <div class="card-tags">
+          <span class="tag py">Python</span><span class="tag nlp">Gensim</span><span class="tag nlp">KoNLPy</span>
+        </div>
+        <span class="card-cta">↗ GitHub에서 보기</span>
+      </a>
+
+      <a class="card" href="https://github.com/ghkd812/seungeun_Lab/tree/main/LDA_TOPIC_MODELING" target="_blank" rel="noopener noreferrer">
+        <div class="card-header">
+          <div class="card-icon pink">💬</div>
+          <div class="card-name">감성 분석</div>
+        </div>
+        <p class="card-desc">고객의소리 게시판 불만 글 긍정/부정 감성 분류. 결과를 워드클라우드 및 키워드 네트워크(R)로 시각화. 최종 네트워크 이미지 산출.</p>
+        <div class="card-tags">
+          <span class="tag py">Python</span><span class="tag r">R</span><span class="tag nlp">NLP</span>
+        </div>
+        <span class="card-cta">↗ GitHub에서 보기</span>
+      </a>
+
+      <a class="card" href="https://github.com/ghkd812/seungeun_Lab/tree/main/인스타크롤링" target="_blank" rel="noopener noreferrer">
+        <div class="card-header">
+          <div class="card-icon pink">📸</div>
+          <div class="card-name">인스타그램 크롤링 분석</div>
+        </div>
+        <p class="card-desc">제주도 관련 인스타그램 게시물 크롤링 후 해시태그 트렌드 및 텍스트 분석. Jupyter Notebook 파이프라인 구현.</p>
+        <div class="card-tags">
+          <span class="tag py">Python</span><span class="tag nlp">Crawling</span><span class="tag">Jupyter</span>
+        </div>
+        <span class="card-cta">↗ GitHub에서 보기</span>
+      </a>
+
+    </div>
+  </div>
+
+  <!-- 추천 & 예측 -->
+  <div class="category">
+    <div class="category-title">추천 시스템 &amp; 예측 분석</div>
+    <div class="cards">
+
+      <a class="card featured" href="https://github.com/ghkd812/seungeun_Lab/tree/main/CUVE_상품추천시스템(실제서비스)" target="_blank" rel="noopener noreferrer">
+        <div class="card-header">
+          <div class="card-icon amber">⭐</div>
+          <div class="card-name">CUVE 상품 추천시스템 (실제 서비스 반영)</div>
+        </div>
+        <p class="card-desc">연관 규칙·룰베이스·컨텐츠 기반 알고리즘 조합으로 실제 여행사 서비스에 반영된 추천시스템. 정확도 측정 SQL 쿼리 및 설계 매뉴얼 포함.</p>
+        <div class="card-tags">
+          <span class="tag r">R</span><span class="tag sql">SQL</span><span class="tag">실서비스</span><span class="tag">Apriori</span>
+        </div>
+        <span class="card-cta">↗ GitHub에서 보기</span>
+      </a>
+
+      <a class="card" href="https://github.com/ghkd812/seungeun_Lab/tree/main/상품추천관련스터디" target="_blank" rel="noopener noreferrer">
+        <div class="card-header">
+          <div class="card-icon amber">🛍️</div>
+          <div class="card-name">상품 추천 시스템 연구 (Apriori · CF · DT)</div>
+        </div>
+        <p class="card-desc">Apriori 연관 규칙 + 협업 필터링 + 의사결정나무 3가지 알고리즘 비교 연구. 넷플릭스 데이터 적용, 검증 SQL 포함. 발표 자료 3종.</p>
+        <div class="card-tags">
+          <span class="tag r">R</span><span class="tag sql">SQL</span><span class="tag">Apriori</span><span class="tag">CF</span><span class="tag">DT</span>
+        </div>
+        <span class="card-cta">↗ GitHub에서 보기</span>
+      </a>
+
+      <a class="card" href="https://github.com/ghkd812/seungeun_Lab/tree/main/수요예측분석" target="_blank" rel="noopener noreferrer">
+        <div class="card-header">
+          <div class="card-icon amber">📈</div>
+          <div class="card-name">여행 수요 예측 분석</div>
+        </div>
+        <p class="card-desc">여행사 상품별 수요 데이터 전처리·피처 엔지니어링·단계별 예측 모델 구축. 이상치 제거, 모델 업데이트 포함. 7개 Jupyter Notebook.</p>
+        <div class="card-tags">
+          <span class="tag py">Python</span><span class="tag py">Scikit-learn</span><span class="tag">Jupyter</span>
+        </div>
+        <span class="card-cta">↗ GitHub에서 보기</span>
+      </a>
+
+      <a class="card" href="https://github.com/ghkd812/seungeun_Lab/tree/main/상품추천관련스터디/클러스터링" target="_blank" rel="noopener noreferrer">
+        <div class="card-header">
+          <div class="card-icon amber">🔬</div>
+          <div class="card-name">클러스터링 분석</div>
+        </div>
+        <p class="card-desc">K-means·계층적 클러스터링(hclust)으로 붓꽃·와인·다이아몬드 데이터 분류. Train/Test 검증 포함.</p>
+        <div class="card-tags">
+          <span class="tag r">R</span><span class="tag">K-means</span><span class="tag">Hclust</span>
+        </div>
+        <span class="card-cta">↗ GitHub에서 보기</span>
+      </a>
+
+    </div>
+  </div>
+
+  <!-- 데이터 분석 -->
+  <div class="category">
+    <div class="category-title">데이터 분석 &amp; SQL</div>
+    <div class="cards">
+
+      <a class="card" href="https://github.com/ghkd812/seungeun_Lab/tree/main/자사전체고객데이터분석및동향분석" target="_blank" rel="noopener noreferrer">
+        <div class="card-header">
+          <div class="card-icon green">👥</div>
+          <div class="card-name">자사 전체 고객 데이터 분석 &amp; 동향 분석</div>
+        </div>
+        <p class="card-desc">연령·성별·지역·재구매율·선행예약시점 등 20종 이상 SQL 쿼리 작성. 고객 기초통계 2019·2020 PPT 및 여행동향 분석 리포트 임원 보고.</p>
+        <div class="card-tags">
+          <span class="tag sql">SQL</span><span class="tag py">Python</span><span class="tag">EDA</span><span class="tag">임원 리포팅</span>
+        </div>
+        <span class="card-cta">↗ GitHub에서 보기</span>
+      </a>
+
+      <a class="card" href="https://github.com/ghkd812/seungeun_Lab/tree/main/라오스지역분석" target="_blank" rel="noopener noreferrer">
+        <div class="card-header">
+          <div class="card-icon green">🌏</div>
+          <div class="card-name">라오스 지역 관광 추세 분석</div>
+        </div>
+        <p class="card-desc">DB에서 예약 데이터를 직접 추출해 라오스 관광 추세 분석. 예약 시점·방문 횟수·연령·성별·이용가격 변화 추이 분석 후 발표 PPT 작성. 입사 후 첫 독립 프로젝트.</p>
+        <div class="card-tags">
+          <span class="tag sql">SQL</span><span class="tag">EDA</span><span class="tag">임원 보고</span>
+        </div>
+        <span class="card-cta">↗ GitHub에서 보기</span>
+      </a>
+
+      <a class="card" href="https://github.com/ghkd812/seungeun_Lab/tree/main/여행트렌드분석" target="_blank" rel="noopener noreferrer">
+        <div class="card-header">
+          <div class="card-icon green">✈️</div>
+          <div class="card-name">여행 트렌드 분석</div>
+        </div>
+        <p class="card-desc">지역별·국가별·도시별 인기 상품 및 출발자 수 추이 SQL 분석. 여행트렌드 PPT 보고서 작성.</p>
+        <div class="card-tags">
+          <span class="tag sql">SQL</span><span class="tag">트렌드 분석</span>
+        </div>
+        <span class="card-cta">↗ GitHub에서 보기</span>
+      </a>
+
+      <a class="card" href="https://github.com/ghkd812/seungeun_Lab/tree/main/Restaurant_분석결과" target="_blank" rel="noopener noreferrer">
+        <div class="card-header">
+          <div class="card-icon teal">🍽️</div>
+          <div class="card-name">레스토랑 데이터 EDA</div>
+        </div>
+        <p class="card-desc">레스토랑 데이터를 5개 Jupyter Notebook으로 단계별 탐색적 분석 수행.</p>
+        <div class="card-tags">
+          <span class="tag py">Python</span><span class="tag">Jupyter</span><span class="tag">EDA</span>
+        </div>
+        <span class="card-cta">↗ GitHub에서 보기</span>
+      </a>
+
+      <a class="card" href="https://github.com/ghkd812/seungeun_Lab/tree/main/자전거" target="_blank" rel="noopener noreferrer">
+        <div class="card-header">
+          <div class="card-icon teal">🚲</div>
+          <div class="card-name">자전거 수요 분석</div>
+        </div>
+        <p class="card-desc">자전거 공유 서비스 수요 패턴 분석. 시간대·날씨 등 변수별 영향도 분석.</p>
+        <div class="card-tags">
+          <span class="tag py">Python</span><span class="tag">Jupyter</span>
+        </div>
+        <span class="card-cta">↗ GitHub에서 보기</span>
+      </a>
+
+    </div>
+  </div>
+
+  <!-- 경쟁사 크롤링 -->
+  <div class="category">
+    <div class="category-title">경쟁사 크롤링 &amp; 비교 분석</div>
+    <div class="cards">
+
+      <a class="card" href="https://github.com/ghkd812/seungeun_Lab/tree/main/경쟁사크롤링비교분석" target="_blank" rel="noopener noreferrer">
+        <div class="card-header">
+          <div class="card-icon rose">🌍</div>
+          <div class="card-name">노랑풍선 경쟁사 크롤링 분석 (5개 지역)</div>
+        </div>
+        <p class="card-desc">Scrapy 기반 경쟁사(노랑풍선) 상품 크롤링. 유럽·일본·태국·필리핀·홍콩 5개 지역 가격·상품 구조 비교 분석 보고서 5종 작성.</p>
+        <div class="card-tags">
+          <span class="tag py">Python</span><span class="tag nlp">Scrapy</span><span class="tag">5개 지역</span><span class="tag">가격 분석</span>
+        </div>
+        <span class="card-cta">↗ GitHub에서 보기</span>
+      </a>
+
+    </div>
+  </div>
+
+  <!-- AI Chatbot -->
+  <div class="category">
+    <div class="category-title">AI Chatbot Development</div>
+    <div class="cards">
+
+      <div class="card featured no-hover">
+        <div class="card-header">
+          <div class="card-icon">🤖</div>
+          <div class="card-name">AICHAT — Claude / GPT 챗봇</div>
+        </div>
+        <p class="card-desc">Claude API 및 GPT API를 활용한 대화형 AI 챗봇 개발. 프롬프트 엔지니어링, 컨텍스트 관리, 사용자 인터페이스 직접 구현.</p>
+        <div class="card-tags">
+          <span class="tag ai">Claude API</span><span class="tag ai">GPT API</span><span class="tag py">Python</span>
+        </div>
+      </div>
+
+      <a class="card" href="https://github.com/ghkd812/seungeun_Lab/tree/main/기획문서모음/여행가이드봇시나리오기획" target="_blank" rel="noopener noreferrer">
+        <div class="card-header">
+          <div class="card-icon pink">🗺️</div>
+          <div class="card-name">큐비 여행 가이드 챗봇 기획</div>
+        </div>
+        <p class="card-desc">KoNLPy·MongoDB 활용 대화형 여행 검색 챗봇 BETA 기획. 시나리오 설계, Train SQL, 큐비 기획문서 작성 포함.</p>
+        <div class="card-tags">
+          <span class="tag py">Python</span><span class="tag nlp">KoNLPy</span><span class="tag sql">MongoDB</span><span class="tag plan">기획</span>
+        </div>
+        <span class="card-cta">↗ GitHub에서 보기</span>
+      </a>
+
+      <a class="card" href="https://github.com/ghkd812/seungeun_Lab/tree/main/Chatbot" target="_blank" rel="noopener noreferrer">
+        <div class="card-header">
+          <div class="card-icon">✈️</div>
+          <div class="card-name">텔레그램 여행 챗봇</div>
+        </div>
+        <p class="card-desc">NLP 기반 여행사 고객 서비스 챗봇. 항공·호텔 예약 안내, 캘린더 UI, 인라인 키보드 구현. Telegram Bot API + pymssql DB 연동.</p>
+        <div class="card-tags">
+          <span class="tag py">Python</span><span class="tag nlp">NLP</span><span class="tag">Telegram API</span>
+        </div>
+        <span class="card-cta">↗ GitHub에서 보기</span>
+      </a>
+
+      <a class="card" href="https://github.com/ghkd812/seungeun_Lab/tree/main/SMALLMovieFriendBot" target="_blank" rel="noopener noreferrer">
+        <div class="card-header">
+          <div class="card-icon">🎬</div>
+          <div class="card-name">영화 추천 챗봇</div>
+        </div>
+        <p class="card-desc">사용자 취향에 맞는 영화 추천 소규모 챗봇. BotHub 기반 시나리오 설계 및 영화 데이터 연동.</p>
+        <div class="card-tags">
+          <span class="tag py">Python</span><span class="tag">BotHub</span>
+        </div>
+        <span class="card-cta">↗ GitHub에서 보기</span>
+      </a>
+
+    </div>
+  </div>
+
+  <!-- 기획 & 리서치 -->
+  <div class="category">
+    <div class="category-title">기획 &amp; 리서치</div>
+    <div class="cards">
+
+      <a class="card" href="https://github.com/ghkd812/seungeun_Lab/tree/main/기획문서모음/여행트렌드페이지모음" target="_blank" rel="noopener noreferrer">
+        <div class="card-header">
+          <div class="card-icon">🏖️</div>
+          <div class="card-name">여행 트렌드 페이지 기획 (6종)</div>
+        </div>
+        <p class="card-desc">2020~2021년 여행 트렌드 분석 콘텐츠 기획안 시리즈 6개 버전. 데이터 기반 트렌드 도출 및 기획서 작성.</p>
+        <div class="card-tags">
+          <span class="tag plan">기획</span><span class="tag">트렌드 분석</span>
+        </div>
+        <span class="card-cta">↗ GitHub에서 보기</span>
+      </a>
+
+      <a class="card" href="https://github.com/ghkd812/seungeun_Lab/tree/main/기획문서모음" target="_blank" rel="noopener noreferrer">
+        <div class="card-header">
+          <div class="card-icon amber">🛒</div>
+          <div class="card-name">참좋은마켓 서비스 기획</div>
+        </div>
+        <p class="card-desc">여행사 커머스 플랫폼 기획. PC·모바일 화면정의서, 가상계좌 결제, ERP 연동 기획. 호텔 개편 모바일 화면 기획 단독 진행.</p>
+        <div class="card-tags">
+          <span class="tag plan">기획</span><span class="tag">UI/UX</span><span class="tag">화면정의서</span><span class="tag">ERP</span>
+        </div>
+        <span class="card-cta">↗ GitHub에서 보기</span>
+      </a>
+
+      <a class="card" href="https://github.com/ghkd812/seungeun_Lab/tree/main/기획문서모음/트렌드페이지기획" target="_blank" rel="noopener noreferrer">
+        <div class="card-header">
+          <div class="card-icon teal">📱</div>
+          <div class="card-name">CUVE 모바일 화면정의서</div>
+        </div>
+        <p class="card-desc">큐비(CUVE) 서비스 모바일 화면정의서 v0.6 작성. 동반자 유형별 맞춤검색 쿼리 설계 포함.</p>
+        <div class="card-tags">
+          <span class="tag plan">화면정의서</span><span class="tag sql">SQL</span><span class="tag">모바일</span>
+        </div>
+        <span class="card-cta">↗ GitHub에서 보기</span>
+      </a>
+
+      <a class="card" href="https://github.com/ghkd812/seungeun_Lab/blob/main/블록체인발표자료_20210525_최종.pptx" target="_blank" rel="noopener noreferrer">
+        <div class="card-header">
+          <div class="card-icon pink">⛓️</div>
+          <div class="card-name">블록체인 기술 연구</div>
+        </div>
+        <p class="card-desc">블록체인 기술 개념 정리 및 발표 자료 2회차 제작. 여행 산업 적용 가능성 탐구.</p>
+        <div class="card-tags">
+          <span class="tag plan">리서치</span><span class="tag">블록체인</span>
+        </div>
+        <span class="card-cta">↗ GitHub에서 보기</span>
+      </a>
+
+    </div>
+  </div>
+
+</section>
+
+<!-- EDUCATION & CERT -->
+<section id="education">
+  <div class="section-header">
+    <div class="section-icon">🎓</div>
+    <h2 class="section-title">Education &amp; Certifications</h2>
+  </div>
+  <div class="info-grid">
+
+    <div class="info-card">
+      <div class="info-label">학력</div>
+      <div class="info-title">경희대학교 관광경영학과</div>
+      <div class="info-sub">졸업 (사회교육원) · ~2017.08</div>
+    </div>
+
+    <div class="info-card">
+      <div class="info-label">어학</div>
+      <div class="info-title">IELTS 5.5</div>
+      <div class="info-sub">2013.12 취득</div>
+    </div>
+
+    <div class="info-card">
+      <div class="info-label">어학</div>
+      <div class="info-title">JLPT N3</div>
+      <div class="info-sub">2017.01.22 취득</div>
+    </div>
+
+    <div class="info-card">
+      <div class="info-label">자격증</div>
+      <div class="info-title">한국호텔교육원 실무 자격증</div>
+      <div class="info-sub">2015.05 – 2015.08</div>
+    </div>
+
+    <div class="info-card">
+      <div class="info-label">해외 경험</div>
+      <div class="info-title">호주 인드루필리 국제 고등학교</div>
+      <div class="info-sub">약 1년 6개월 재학 · 2005.06 – 2006.10</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-header">
+    <div class="section-icon">✉️</div>
+    <h2 class="section-title">Contact</h2>
+  </div>
+  <div class="contact-box">
+    <h3>함께 일하고 싶으신가요?</h3>
+    <p>IT 기획, 데이터 분석, AI 개발 관련 문의는 언제든지 환영합니다.</p>
+    <div class="contact-links">
+      <a href="https://github.com/ghkd812/seungeun_Lab" target="_blank" class="contact-link">
+        <svg width="17" height="17" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222 0 1.606-.015 2.896-.015 3.286 0 .315.216.694.825.576C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12z"/></svg>
+        GitHub
+      </a>
+      <a href="mailto:yeoeun02@naver.com" class="contact-link">
+        <svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
+        yeoeun02@naver.com
+      </a>
+      <a href="tel:010-4088-0659" class="contact-link">
+        <svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.07 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3 2.18h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L7.09 9.91a16 16 0 0 0 6 6l1.09-1.09a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        010-4088-0659
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2025 Seungeun Yeo &nbsp;·&nbsp; Built with seungeun_Lab</p>
+</footer>
+
+<script>
+  // 네비 활성화
+  const navLinks = document.querySelectorAll('.nav-links a');
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      const id = e.target.id;
+      navLinks.forEach(a => {
+        a.style.color = '';
+        a.style.fontWeight = '';
+        if (id && a.getAttribute('href') === '#' + id) {
+          a.style.color = '#6366f1';
+          a.style.fontWeight = '700';
+        }
+      });
+    });
+  }, { threshold: 0.3 });
+  document.querySelectorAll('section, .hero-wrap').forEach(s => io.observe(s));
+
+  // 카드 등장 애니메이션
+  const style = document.createElement('style');
+  style.textContent = '.card { opacity: 0; transform: translateY(14px); transition: opacity .38s ease, transform .38s ease, box-shadow .25s, border-color .25s !important; } .card.in { opacity: 1 !important; transform: translateY(0) !important; }';
+  document.head.appendChild(style);
+  const co = new IntersectionObserver(entries => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('in'), (i % 6) * 55);
+        co.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.card').forEach(c => co.observe(c));
+</script>
+
+</body>
+</html>
