@@ -99,11 +99,3 @@ seungeun_Lab/
 | [고객 데이터 통계 분석](자사전체고객데이터분석및동향분석/) | SQL 20종+ 고객 기초통계·동향 분석 임원 리포팅 |
 | [LDA 토픽 모델링](LDA_TOPIC_MODELING/) | 고객 리뷰 LDA 분류 + 감성 분석 + 키워드 네트워크 |
 | [수요 예측 분석](수요예측분석/) | 시계열 기반 여행 상품 수요 예측 모델 |
-
----
-
-## 📬 Contact
-
-- **Email** : yeoeun02@naver.com
-- **Phone** : 010-4088-0659
-- **GitHub** : [github.com/ghkd812/seungeun_Lab](https://github.com/ghkd812/seungeun_Lab)
