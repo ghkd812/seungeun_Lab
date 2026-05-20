@@ -87,13 +87,15 @@
     .tl-list li::before { content: '▸'; color: var(--primary); flex-shrink: 0; font-size: .73rem; margin-top: 2px; }
 
     /* CARDS */
-    .category { margin-bottom: 3.2rem; }
+    .category { margin-bottom: 3rem; }
     .category-title { font-size: .84rem; font-weight: 800; color: var(--primary); margin-bottom: 1rem; display: flex; align-items: center; gap: .5rem; text-transform: uppercase; letter-spacing: .06em; }
     .category-title::before { content: ''; width: 4px; height: 1.1em; background: linear-gradient(to bottom, var(--primary), var(--accent)); border-radius: 2px; }
     .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(265px, 1fr)); gap: 1.15rem; }
     .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.4rem; box-shadow: var(--shadow); transition: all .25s; display: flex; flex-direction: column; gap: .5rem; text-decoration: none; color: inherit; }
     .card:hover { box-shadow: var(--shadow-hover); transform: translateY(-4px); border-color: #c7d2fe; }
+    .card.no-hover { cursor: default; }
     .card.no-hover:hover { transform: none; box-shadow: var(--shadow); border-color: var(--border); }
+    .card.featured.no-hover:hover { border-color: var(--primary); }
     .card-header { display: flex; align-items: flex-start; gap: .7rem; }
     .card-icon { width: 40px; height: 40px; border-radius: 9px; background: var(--primary-light); display: flex; align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0; }
     .card-icon.pink { background: #fdf2f8; }
@@ -117,12 +119,29 @@
     .card:hover .card-cta { opacity: 1; }
     .card.featured { border: 2px solid var(--primary); background: linear-gradient(140deg, #f8f7ff 0%, #eef2ff 100%); }
 
-    /* EDUCATION / CERT */
-    .info-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem; }
-    .info-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.2rem 1.4rem; box-shadow: var(--shadow); }
-    .info-label { font-size: .72rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: .06em; margin-bottom: .4rem; }
-    .info-title { font-weight: 700; font-size: .95rem; margin-bottom: .2rem; }
-    .info-sub { font-size: .82rem; color: var(--text-muted); }
+    /* FEATURED LABEL */
+    .featured-label {
+      display: inline-flex; align-items: center; gap: .45rem;
+      font-size: .72rem; font-weight: 700; letter-spacing: .07em; text-transform: uppercase;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      color: #fff; padding: .3rem .9rem; border-radius: 99px; margin-bottom: 1.3rem;
+    }
+
+    /* OTHER PROJECTS TOGGLE */
+    .toggle-btn {
+      display: flex; align-items: center; gap: .7rem;
+      width: 100%; padding: 1rem 1.4rem;
+      background: var(--surface); border: 1.5px dashed var(--border);
+      border-radius: var(--radius); cursor: pointer;
+      font-size: .88rem; font-weight: 600; color: var(--text-muted);
+      transition: all .2s; text-align: left; margin-top: .5rem;
+    }
+    .toggle-btn:hover { border-color: var(--primary); color: var(--primary); background: var(--primary-light); }
+    .toggle-icon { font-size: .85rem; transition: transform .3s; display: inline-block; }
+    .toggle-btn.open .toggle-icon { transform: rotate(180deg); }
+    .toggle-count { margin-left: auto; font-size: .74rem; background: var(--primary-light); color: var(--primary); padding: .15rem .6rem; border-radius: 99px; white-space: nowrap; }
+    .other-projects-content { display: none; margin-top: 2rem; }
+    .other-projects-content.open { display: block; }
 
     /* CONTACT */
     .contact-box { background: linear-gradient(135deg, var(--primary) 0%, #818cf8 50%, var(--accent) 100%); border-radius: 20px; padding: 2.8rem 2.5rem; color: #fff; text-align: center; }
@@ -169,20 +188,18 @@
 <div class="hero-wrap">
   <div class="hero" id="about">
     <div class="hero-text">
-      <div class="hero-eyebrow">IT Planner · Data Analyst · BA &amp; PM</div>
+      <div class="hero-eyebrow">IT 기획 · BA/PM · 데이터 분석</div>
       <h1>안녕하세요,<br><em>여승은</em>입니다.</h1>
       <div class="hero-badges">
         <span class="hero-badge">여행 / 글로벌 e-커머스 / 엔터</span>
         <span class="hero-badge">8년+ 실무 경험</span>
+        <span class="hero-badge">서비스 기획 · BA · PM</span>
         <span class="hero-badge">SQL · Python · R</span>
-        <span class="hero-badge">NLP · 추천시스템 · AI 챗봇</span>
-        <span class="hero-badge">글로벌 SI · 국가 PM</span>
       </div>
       <p class="hero-bio">
-        여행사·글로벌 e-커머스·엔터 도메인에서 IT 기획, BA, 국가 PM, 데이터 분석을 경험했습니다.
-        SQL·Python·R 기반 데이터 분석부터 NLP 챗봇·추천시스템 개발,
-        LG.COM 글로벌 SI, SM C&amp;C 출장·공연 예약 시스템 기획까지
-        데이터와 기획으로 비즈니스 문제를 해결합니다.
+        여행, 글로벌 e-커머스, 엔터 도메인에서 서비스 기획과 데이터 분석을 연결해 비즈니스 문제를 해결해왔습니다.
+        요구사항 수집·화면 설계·운영 정책 수립부터 SQL 기반 데이터 분석과 임원 보고까지,
+        현업 요구사항을 시스템 관점으로 구체화하는 IT 기획자입니다.
       </p>
       <div class="hero-actions">
         <a href="https://github.com/ghkd812/seungeun_Lab" target="_blank" class="btn btn-primary">
@@ -205,7 +222,7 @@
     <div class="stat"><div class="stat-num">8년+</div><div class="stat-label">IT 기획 · 데이터 분석</div></div>
     <div class="stat"><div class="stat-num">3개사</div><div class="stat-label">여행 · 글로벌 e-커머스 · 엔터</div></div>
     <div class="stat"><div class="stat-num">2개국</div><div class="stat-label">글로벌 SI PM (베트남 · 호주)</div></div>
-    <div class="stat"><div class="stat-num">20+</div><div class="stat-label">개인 프로젝트 &amp; 기획 결과물</div></div>
+    <div class="stat"><div class="stat-num">20+</div><div class="stat-label">기획 결과물 &amp; 분석 프로젝트</div></div>
   </div>
 </div>
 
@@ -217,45 +234,58 @@
   </div>
 
   <div class="skills-block">
-    <div class="skills-block-title">언어 &amp; 분석 도구</div>
+    <div class="skills-block-title">IT 기획 / BA / PM</div>
     <div class="skills-row">
-      <span class="skill-pill top">Python</span>
-      <span class="skill-pill top">R</span>
-      <span class="skill-pill top">SQL (MSSQL · MySQL)</span>
-      <span class="skill-pill">Pandas / Scikit-learn</span>
-      <span class="skill-pill">Gensim / KoNLPy</span>
-      <span class="skill-pill">Scrapy / BeautifulSoup</span>
-      <span class="skill-pill">Jupyter Notebook</span>
-    </div>
-  </div>
-
-  <div class="skills-block">
-    <div class="skills-block-title">AI · NLP · ML</div>
-    <div class="skills-row">
-      <span class="skill-pill top">NLP / 자연어처리</span>
-      <span class="skill-pill top">LDA 토픽 모델링</span>
-      <span class="skill-pill">감성 분석</span>
-      <span class="skill-pill top">추천 시스템 (Apriori · CF)</span>
-      <span class="skill-pill">시계열 수요 예측</span>
-      <span class="skill-pill">클러스터링</span>
-      <span class="skill-pill">의사결정나무</span>
-      <span class="skill-pill top">Claude / GPT API</span>
-      <span class="skill-pill">Chatbot 개발</span>
-    </div>
-  </div>
-
-  <div class="skills-block">
-    <div class="skills-block-title">IT 기획 · BA · PM</div>
-    <div class="skills-row">
+      <span class="skill-pill top">요구사항 분석</span>
+      <span class="skill-pill top">화면정의서 · 스토리보드</span>
       <span class="skill-pill top">Product Planning</span>
       <span class="skill-pill top">Business Analysis (BA)</span>
       <span class="skill-pill top">Project Management (PM)</span>
-      <span class="skill-pill top">화면정의서 · 스토리보드</span>
-      <span class="skill-pill top">요구사항 분석</span>
+      <span class="skill-pill">정책 / 운영 로직 설계</span>
+      <span class="skill-pill">외주 개발사 커뮤니케이션</span>
+      <span class="skill-pill">QA / QC</span>
+      <span class="skill-pill">배포 관리</span>
+    </div>
+  </div>
+
+  <div class="skills-block">
+    <div class="skills-block-title">데이터 분석</div>
+    <div class="skills-row">
+      <span class="skill-pill top">SQL 기반 데이터 추출 / 검증</span>
+      <span class="skill-pill top">Python</span>
+      <span class="skill-pill top">R</span>
+      <span class="skill-pill">EDA</span>
+      <span class="skill-pill">리포트 작성 · 임원 보고</span>
+      <span class="skill-pill">Pandas / Scikit-learn</span>
+      <span class="skill-pill">데이터 시각화</span>
+    </div>
+  </div>
+
+  <div class="skills-block">
+    <div class="skills-block-title">서비스 / 도메인</div>
+    <div class="skills-row">
+      <span class="skill-pill top">출장예약시스템 (BTMS)</span>
+      <span class="skill-pill top">글로벌 e-커머스</span>
+      <span class="skill-pill">ERP</span>
+      <span class="skill-pill">여행 / 항공 / 호텔</span>
+      <span class="skill-pill">보험 청약 시스템</span>
+      <span class="skill-pill">Coveo 검색엔진</span>
       <span class="skill-pill">GA4 Tagging</span>
       <span class="skill-pill">Data Layer 설계</span>
-      <span class="skill-pill">Coveo 검색엔진</span>
       <span class="skill-pill">글로벌 SI · 국가 PM</span>
+    </div>
+  </div>
+
+  <div class="skills-block">
+    <div class="skills-block-title">AI / NLP 경험</div>
+    <div class="skills-row">
+      <span class="skill-pill top">NLP 챗봇</span>
+      <span class="skill-pill top">추천 시스템 (Apriori · CF)</span>
+      <span class="skill-pill">LDA 토픽 모델링</span>
+      <span class="skill-pill">감성 분석</span>
+      <span class="skill-pill">Claude / GPT API</span>
+      <span class="skill-pill">Gensim / KoNLPy</span>
+      <span class="skill-pill">시계열 수요 예측</span>
     </div>
   </div>
 </section>
@@ -268,7 +298,6 @@
   </div>
   <div class="timeline">
 
-    <!-- SM C&C -->
     <div class="tl-item">
       <div class="tl-date">2025.07 — 현재</div>
       <div class="tl-body">
@@ -280,13 +309,11 @@
           <li>글로벌패키지 — SM 소속 아티스트 공연·숙박 연계 글로벌 예약 사이트 전면 개편 기획</li>
           <li>캐롯·한화 손해보험 청약신청 내부 직원용 사이트 설계 및 기능 개선</li>
           <li>각 고객사별 출장 사이트 맞춤형 설계·기획 (투어익스프레스 등)</li>
-          <li>각 고객사별 호텔 숙박 예약 복지몰 기획·관리</li>
           <li>기획자 단독으로 다수 프로젝트 동시 운영, 요구사항 수집·기획·개발·QC 전 과정 리딩</li>
         </ul>
       </div>
     </div>
 
-    <!-- 지엠솔루션 -->
     <div class="tl-item">
       <div class="tl-date">2022.06 — 2025.07</div>
       <div class="tl-body">
@@ -295,7 +322,7 @@
         <span class="tl-role">마케팅플랫폼팀 책임연구원 · BA · 국가 PM</span>
         <ul class="tl-list">
           <li>GOC 조직 기획자 — 전 국가 공통 이슈·DEFECT F/U, 신규 기획 검토·승인·개발~배포 전 과정 핸들링</li>
-          <li>HOME/PLP, PDP/PBP, ADMIN, PRODUCT/SPEC, SEARCH, B2B/COMPLIANCE, GNB/Filter 영역 개발 기획</li>
+          <li>HOME/PLP, PDP/PBP, ADMIN, PRODUCT/SPEC, SEARCH, GNB/Filter 영역 개발 기획</li>
           <li>Product·Spec·Search·Data Layer·GA4 Tagging BA — 해외 법인 요구사항 수집·기획·QC·배포 리딩</li>
           <li>LG.COM 해외 신규 SI 프로젝트 <strong>베트남·호주 국가 PM</strong> — 현지 출장, 요구사항 수집, 기획·개발 협업</li>
           <li>전자제품 e-커머스 상품 스펙 데이터·서드파티 API 이슈 담당, Coveo 검색엔진 이슈 관리</li>
@@ -304,7 +331,6 @@
       </div>
     </div>
 
-    <!-- 참좋은여행 정규직 -->
     <div class="tl-item">
       <div class="tl-date">2018.01 — 2022.06</div>
       <div class="tl-body">
@@ -312,18 +338,17 @@
         <div class="tl-company">참좋은여행㈜</div>
         <span class="tl-role">IT기획팀 계장 · 데이터 분석 &amp; 기획</span>
         <ul class="tl-list">
-          <li>SQL 데이터 추출·분석, 비정형(텍스트) NLP 분석 및 임원 리포팅 / 분기별 통계 백서 작성</li>
+          <li>SQL 기반 데이터 추출·분석, 비정형(텍스트) NLP 분석 및 임원 리포팅 / 분기별 통계 백서 작성</li>
           <li>라오스·여행트렌드 등 지역별 관광 추세 데이터 분석 PPT 단독 작성 및 임원 보고</li>
           <li>R &amp; SQL 활용 여행 상품 추천시스템 업그레이드 (Apriori + 협업 필터링 + 실제 서비스 반영)</li>
           <li>Scrapy 기반 경쟁사(노랑풍선) 크롤링 — 유럽·일본·태국·필리핀·홍콩 5개 지역 비교 분석</li>
           <li>KoNLPy · MongoDB 활용 큐비 여행 가이드 챗봇 기획·개발 (시나리오 설계 포함)</li>
-          <li>LDA 토픽 모델링, 감성 분석, 수요 예측 (시계열), 고객 데이터 통합·병합 기획</li>
+          <li>LDA 토픽 모델링, 감성 분석, 수요 예측(시계열), 고객 데이터 통합·병합 기획</li>
           <li>호텔 개편 PC·모바일 화면정의서 단독 기획, 참좋은마켓 ERP·커머스 프로세스 기획</li>
         </ul>
       </div>
     </div>
 
-    <!-- 참좋은여행 인턴 -->
     <div class="tl-item">
       <div class="tl-date">2017.07 — 2018.01</div>
       <div class="tl-body">
@@ -348,408 +373,342 @@
     <h2 class="section-title">Projects</h2>
   </div>
 
-  <!-- SM C&C 기획 -->
-  <div class="category">
-    <div class="category-title">SM C&amp;C — IT 기획 &amp; 서비스 설계</div>
-    <div class="cards">
+  <!-- 대표 프로젝트 6 -->
+  <div class="featured-label">⭐ 대표 프로젝트</div>
+  <div class="cards" style="margin-bottom:3rem;">
 
-      <a class="card" href="https://github.com/ghkd812/seungeun_Lab/tree/main/기획문서모음/글로벌공연예약사이트개편" target="_blank" rel="noopener noreferrer">
-        <div class="card-header">
-          <div class="card-icon pink">🎤</div>
-          <div class="card-name">글로벌패키지 공연·숙박 예약 사이트 개편</div>
-        </div>
-        <p class="card-desc">SM 소속 아티스트 공연 및 숙박 연계 글로벌 예약 사이트 전면 개편 기획. 10년 이상 된 구 사이트를 신규 UX로 재설계. V3.1 기획안 완성.</p>
-        <div class="card-tags">
-          <span class="tag sm">SM C&amp;C</span><span class="tag plan">기획</span><span class="tag">UI/UX</span><span class="tag">글로벌</span>
-        </div>
-        <span class="card-cta">↗ GitHub에서 보기</span>
-      </a>
-
-      <a class="card" href="https://github.com/ghkd812/seungeun_Lab/tree/main/기획문서모음/한화청약신청사이트(내부용)" target="_blank" rel="noopener noreferrer">
-        <div class="card-header">
-          <div class="card-icon teal">🛡️</div>
-          <div class="card-name">캐롯·한화 보험 청약신청 사이트 설계</div>
-        </div>
-        <p class="card-desc">출장 고객사 직원용 여행자 보험 청약신청 내부 사이트 설계·기능 개선. 캐롯손해보험 V2.1, 한화손해보험 매뉴얼 포함.</p>
-        <div class="card-tags">
-          <span class="tag sm">SM C&amp;C</span><span class="tag plan">설계</span><span class="tag">보험</span><span class="tag">내부 시스템</span>
-        </div>
-        <span class="card-cta">↗ GitHub에서 보기</span>
-      </a>
-
-      <a class="card" href="https://github.com/ghkd812/seungeun_Lab/tree/main/기획문서모음/기획운영" target="_blank" rel="noopener noreferrer">
-        <div class="card-header">
-          <div class="card-icon amber">✈️</div>
-          <div class="card-name">BTMS 출장예약시스템 &amp; 투어익스프레스 운영 기획</div>
-        </div>
-        <p class="card-desc">고객사별 맞춤형 출장예약시스템(BTMS) 화면·로직 설계. 투어익스프레스 사이트 유지보수 및 예약 페이지·로그인 오류 개선 기획.</p>
-        <div class="card-tags">
-          <span class="tag sm">SM C&amp;C</span><span class="tag plan">기획</span><span class="tag">출장시스템</span><span class="tag">운영</span>
-        </div>
-        <span class="card-cta">↗ GitHub에서 보기</span>
-      </a>
-
-      <div class="card no-hover">
-        <div class="card-header">
-          <div class="card-icon teal">🏗️</div>
-          <div class="card-name">TravelHub — 신규 BTMS 도입 프로젝트 (진행 중)</div>
-        </div>
-        <p class="card-desc">기존 출장예약시스템을 대체하는 신규 BTMS 도입 프로젝트. 외주 개발사와 협업하여 PA(Project Assistant)로서 요구사항 정리·기획 검토·커뮤니케이션 서포트 진행 중.</p>
-        <div class="card-tags">
-          <span class="tag sm">SM C&amp;C</span><span class="tag plan">PA</span><span class="tag">신규 도입</span><span class="tag">진행 중</span>
-        </div>
+    <a class="card featured" href="https://github.com/ghkd812/seungeun_Lab/tree/main/기획문서모음/기획운영" target="_blank" rel="noopener noreferrer">
+      <div class="card-header">
+        <div class="card-icon amber">✈️</div>
+        <div class="card-name">BTMS 출장예약시스템 운영 기획 &amp; TravelHub 신규 도입</div>
       </div>
-
-    </div>
-  </div>
-
-  <!-- LG CNS -->
-  <div class="category">
-    <div class="category-title">LG CNS — 글로벌 IT 기획 &amp; BA (지엠솔루션)</div>
-    <p style="font-size:.82rem;color:var(--text-muted);margin-bottom:1rem;padding:.6rem 1rem;background:#fff8f0;border-left:3px solid #f59e0b;border-radius:4px;">
-      ⚠️ 해당 경력의 기획 산출물은 보안 정책상 반출이 불가하여 결과물 첨부가 어렵습니다. 업무 내용은 아래 카드 및 경력 사항을 참고해 주세요.
-    </p>
-    <div class="cards">
-
-      <div class="card no-hover">
-        <div class="card-header">
-          <div class="card-icon">🌐</div>
-          <div class="card-name">GOC 개발 기획 — 글로벌 공통 이슈 관리</div>
-        </div>
-        <p class="card-desc">전 국가 LG.COM 공통 이슈·DEFECT F/U 및 신규 기능 기획. HOME/PLP/PDP/SEARCH/GNB 등 MKT 전 영역 기획~배포 핸들링.</p>
-        <div class="card-tags">
-          <span class="tag lg">IT기획</span><span class="tag lg">글로벌 운영</span><span class="tag plan">GOC</span>
-        </div>
+      <p class="card-desc">고객사별 맞춤형 출장예약시스템(BTMS)의 화면·로직 설계와 운영 전반을 단독으로 담당했습니다. 기획자 혼자 다수 프로젝트를 동시 운영하며 요구사항 수집·기획·개발·QC 전 과정을 리딩했습니다. 신규 BTMS(TravelHub) 도입 프로젝트에서는 PA로서 요구사항 정리와 외주 개발사 커뮤니케이션을 담당했습니다.</p>
+      <div class="card-tags">
+        <span class="tag sm">SM C&amp;C</span><span class="tag plan">IT기획</span><span class="tag">BTMS</span><span class="tag">PM</span><span class="tag plan">화면정의서</span>
       </div>
+      <span class="card-cta">↗ GitHub에서 보기</span>
+    </a>
 
-      <div class="card no-hover">
-        <div class="card-header">
-          <div class="card-icon amber">📊</div>
-          <div class="card-name">Business Analyst (BA) — 해외 법인 요구사항</div>
-        </div>
-        <p class="card-desc">Product·Spec·Search·Data Layer·GA4 Tagging 관련 해외 법인 요구사항 수집·분석·1차 기획안 작성. 기획·개발·QC·배포 전 과정 리딩.</p>
-        <div class="card-tags">
-          <span class="tag lg">BA</span><span class="tag plan">기획</span><span class="tag">e-커머스</span><span class="tag">GA4</span>
-        </div>
+    <a class="card featured" href="https://github.com/ghkd812/seungeun_Lab/tree/main/기획문서모음/글로벌공연예약사이트개편" target="_blank" rel="noopener noreferrer">
+      <div class="card-header">
+        <div class="card-icon pink">🎤</div>
+        <div class="card-name">글로벌패키지 공연·숙박 예약 사이트 개편</div>
       </div>
-
-      <div class="card no-hover">
-        <div class="card-header">
-          <div class="card-icon pink">✈️</div>
-          <div class="card-name">국가 PM — 베트남·호주 LG.COM SI 프로젝트</div>
-        </div>
-        <p class="card-desc">LG.COM 해외 신규 SI 프로젝트 국가 PM 담당. 현지 출장·브리핑·요구사항 수집, 각국 특성·법적 이슈 검토, 기획~개발 협업 진행.</p>
-        <div class="card-tags">
-          <span class="tag lg">국가 PM</span><span class="tag lg">SI</span><span class="tag">베트남</span><span class="tag">호주</span>
-        </div>
+      <p class="card-desc">10년 이상 운영된 SM 아티스트 글로벌 패키지 예약 사이트를 전면 개편했습니다. 공연과 숙박 연계 상품의 예약 흐름을 새 UX로 재설계하고, 글로벌 이용자 대상의 화면 정책과 운영 로직을 단독으로 기획했습니다. V3.1 기획안 완성.</p>
+      <div class="card-tags">
+        <span class="tag sm">SM C&amp;C</span><span class="tag plan">기획</span><span class="tag">UI/UX</span><span class="tag">글로벌</span><span class="tag plan">화면정의서</span>
       </div>
+      <span class="card-cta">↗ GitHub에서 보기</span>
+    </a>
 
-      <div class="card no-hover">
-        <div class="card-header">
-          <div class="card-icon green">🔎</div>
-          <div class="card-name">Coveo 검색엔진 &amp; Data Layer 설계</div>
-        </div>
-        <p class="card-desc">Coveo 검색엔진 이슈 관리·개선 기획. GA4 태깅 요구사항 수집·분석 환경 구축, 데이터레이어 설계 및 삽입 담당.</p>
-        <div class="card-tags">
-          <span class="tag lg">Coveo</span><span class="tag">GA4</span><span class="tag">Data Layer</span>
-        </div>
+    <a class="card featured" href="https://github.com/ghkd812/seungeun_Lab/tree/main/기획문서모음/한화청약신청사이트(내부용)" target="_blank" rel="noopener noreferrer">
+      <div class="card-header">
+        <div class="card-icon teal">🛡️</div>
+        <div class="card-name">캐롯·한화 보험 청약신청 사이트 설계</div>
       </div>
+      <p class="card-desc">출장 고객사 임직원을 위한 여행자 보험 청약신청 내부 시스템을 신규 설계했습니다. 보험사별 청약 프로세스와 데이터 연계 요건을 분석해 화면 정의와 운영 정책을 수립했습니다. 캐롯손해보험 V2.1 기획서와 한화손해보험 매뉴얼을 산출물로 작성했습니다.</p>
+      <div class="card-tags">
+        <span class="tag sm">SM C&amp;C</span><span class="tag plan">설계</span><span class="tag">보험</span><span class="tag">내부 시스템</span>
+      </div>
+      <span class="card-cta">↗ GitHub에서 보기</span>
+    </a>
 
+    <div class="card featured no-hover">
+      <div class="card-header">
+        <div class="card-icon">🌐</div>
+        <div class="card-name">LG.COM 글로벌 SI / 국가 PM / BA</div>
+      </div>
+      <p class="card-desc">LG.COM 글로벌 e-커머스에서 전 국가 공통 이슈·DEFECT 관리, 해외 법인 요구사항 수집·기획·QC를 담당했습니다. 베트남·호주 신규 SI 프로젝트의 국가 PM으로 현지 출장과 기획·개발 협업을 이끌었습니다. GA4 Tagging BA, Coveo 검색엔진 이슈 관리, 데이터레이어 설계도 수행했습니다.</p>
+      <div class="card-tags">
+        <span class="tag lg">국가 PM</span><span class="tag lg">BA</span><span class="tag lg">LG.COM</span><span class="tag">글로벌 SI</span><span class="tag">GA4</span>
+      </div>
+      <p style="font-size:.74rem;color:var(--text-muted);margin-top:.6rem;padding:.4rem .75rem;background:#fff8f0;border-left:2.5px solid #f59e0b;border-radius:4px;">⚠️ 보안 정책상 기획 산출물 반출 불가</p>
     </div>
+
+    <a class="card featured" href="https://github.com/ghkd812/seungeun_Lab/tree/main/CUVE_상품추천시스템(실제서비스)" target="_blank" rel="noopener noreferrer">
+      <div class="card-header">
+        <div class="card-icon amber">⭐</div>
+        <div class="card-name">CUVE 상품 추천시스템 (실제 서비스 반영)</div>
+      </div>
+      <p class="card-desc">여행사 상품 추천 정확도를 높이기 위해 연관 규칙·룰베이스·컨텐츠 기반 알고리즘을 결합해 실제 서비스에 반영했습니다. 알고리즘 로직 설계부터 SQL 기반 정확도 측정 쿼리 작성, 운영 매뉴얼까지 전 과정을 담당했습니다.</p>
+      <div class="card-tags">
+        <span class="tag r">R</span><span class="tag sql">SQL</span><span class="tag">실서비스</span><span class="tag">Apriori</span><span class="tag">CF</span>
+      </div>
+      <span class="card-cta">↗ GitHub에서 보기</span>
+    </a>
+
+    <a class="card featured" href="https://github.com/ghkd812/seungeun_Lab/tree/main/자사전체고객데이터분석및동향분석" target="_blank" rel="noopener noreferrer">
+      <div class="card-header">
+        <div class="card-icon green">👥</div>
+        <div class="card-name">자사 고객 데이터 분석 &amp; 여행 트렌드 리포팅</div>
+      </div>
+      <p class="card-desc">경영진 의사결정을 위한 고객 분석과 여행 트렌드 파악을 목적으로, SQL을 활용해 고객·예약·상품 데이터를 추출·검증했습니다. 연령·성별·지역·재구매율·예약 시점 등 주요 지표를 분석하고 통계 리포트와 임원 보고 자료를 작성했습니다.</p>
+      <div class="card-tags">
+        <span class="tag sql">SQL</span><span class="tag py">Python</span><span class="tag">EDA</span><span class="tag">임원 보고</span>
+      </div>
+      <span class="card-cta">↗ GitHub에서 보기</span>
+    </a>
+
   </div>
 
-  <!-- NLP & Text Mining -->
-  <div class="category">
-    <div class="category-title">NLP &amp; Text Mining</div>
-    <div class="cards">
+  <!-- 기타 프로젝트 토글 -->
+  <button class="toggle-btn" id="toggleBtn" onclick="toggleOtherProjects()">
+    <span class="toggle-icon">▼</span>
+    <span class="toggle-text">기타 데이터 분석 / NLP / 스터디 프로젝트 더보기</span>
+    <span class="toggle-count">+17</span>
+  </button>
 
-      <a class="card" href="https://github.com/ghkd812/seungeun_Lab/tree/main/LDA_TOPIC_MODELING" target="_blank" rel="noopener noreferrer">
-        <div class="card-header">
-          <div class="card-icon">🔍</div>
-          <div class="card-name">LDA 토픽 모델링</div>
-        </div>
-        <p class="card-desc">여행사 고객 리뷰 데이터 LDA 토픽 분류 + 키워드 네트워크 시각화. 불용어 처리·명사 추출 파이프라인 구축. 결과 PPT 포함.</p>
-        <div class="card-tags">
-          <span class="tag py">Python</span><span class="tag nlp">Gensim</span><span class="tag nlp">KoNLPy</span>
-        </div>
-        <span class="card-cta">↗ GitHub에서 보기</span>
-      </a>
+  <div class="other-projects-content" id="otherProjects">
 
-      <a class="card" href="https://github.com/ghkd812/seungeun_Lab/tree/main/LDA_TOPIC_MODELING" target="_blank" rel="noopener noreferrer">
-        <div class="card-header">
-          <div class="card-icon pink">💬</div>
-          <div class="card-name">감성 분석</div>
-        </div>
-        <p class="card-desc">고객의소리 게시판 불만 글 긍정/부정 감성 분류. 결과를 워드클라우드 및 키워드 네트워크(R)로 시각화. 최종 네트워크 이미지 산출.</p>
-        <div class="card-tags">
-          <span class="tag py">Python</span><span class="tag r">R</span><span class="tag nlp">NLP</span>
-        </div>
-        <span class="card-cta">↗ GitHub에서 보기</span>
-      </a>
+    <!-- AI Chatbot -->
+    <div class="category">
+      <div class="category-title">AI Chatbot / NLP 기반 챗봇 개발</div>
+      <div class="cards">
 
-      <a class="card" href="https://github.com/ghkd812/seungeun_Lab/tree/main/인스타크롤링" target="_blank" rel="noopener noreferrer">
-        <div class="card-header">
-          <div class="card-icon pink">📸</div>
-          <div class="card-name">인스타그램 크롤링 분석</div>
-        </div>
-        <p class="card-desc">제주도 관련 인스타그램 게시물 크롤링 후 해시태그 트렌드 및 텍스트 분석. Jupyter Notebook 파이프라인 구현.</p>
-        <div class="card-tags">
-          <span class="tag py">Python</span><span class="tag nlp">Crawling</span><span class="tag">Jupyter</span>
-        </div>
-        <span class="card-cta">↗ GitHub에서 보기</span>
-      </a>
+        <a class="card" href="https://github.com/ghkd812/AICHAT" target="_blank" rel="noopener noreferrer">
+          <div class="card-header">
+            <div class="card-icon">🤖</div>
+            <div class="card-name">AICHAT — Hazel (업무용 개인 AI 어시스턴트)</div>
+          </div>
+          <p class="card-desc">업무 생산성 향상을 위한 개인 AI 어시스턴트. GPT-4o·o3·DALL-E 멀티모델 지원, PDF·DOCX·PPTX·Excel 파일 분석, 네이버 검색 API 연동, MongoDB RAG 구현. 로그인·세션 관리·대화 히스토리·실시간 스트리밍까지 풀스택으로 직접 개발했습니다.</p>
+          <div class="card-tags">
+            <span class="tag ai">GPT-4o</span><span class="tag ai">OpenAI API</span><span class="tag py">Python</span><span class="tag py">Streamlit</span><span class="tag sql">MongoDB</span><span class="tag">RAG</span>
+          </div>
+          <span class="card-cta">↗ GitHub에서 보기</span>
+        </a>
 
+        <a class="card" href="https://github.com/ghkd812/seungeun_Lab/tree/main/기획문서모음/여행가이드봇시나리오기획" target="_blank" rel="noopener noreferrer">
+          <div class="card-header">
+            <div class="card-icon pink">🗺️</div>
+            <div class="card-name">큐비 여행 가이드 챗봇 기획</div>
+          </div>
+          <p class="card-desc">KoNLPy·MongoDB 활용 대화형 여행 검색 챗봇 BETA 기획. 시나리오 설계, Train SQL, 큐비 기획문서 포함.</p>
+          <div class="card-tags">
+            <span class="tag py">Python</span><span class="tag nlp">KoNLPy</span><span class="tag sql">MongoDB</span><span class="tag plan">기획</span>
+          </div>
+          <span class="card-cta">↗ GitHub에서 보기</span>
+        </a>
+
+        <a class="card" href="https://github.com/ghkd812/seungeun_Lab/tree/main/Chatbot" target="_blank" rel="noopener noreferrer">
+          <div class="card-header">
+            <div class="card-icon">✈️</div>
+            <div class="card-name">텔레그램 여행 챗봇</div>
+          </div>
+          <p class="card-desc">NLP 기반 여행사 고객 서비스 챗봇. 항공·호텔 예약 안내, 캘린더 UI, 인라인 키보드 구현. Telegram Bot API + pymssql DB 연동.</p>
+          <div class="card-tags">
+            <span class="tag py">Python</span><span class="tag nlp">NLP</span><span class="tag">Telegram API</span>
+          </div>
+          <span class="card-cta">↗ GitHub에서 보기</span>
+        </a>
+
+        <a class="card" href="https://github.com/ghkd812/seungeun_Lab/tree/main/SMALLMovieFriendBot" target="_blank" rel="noopener noreferrer">
+          <div class="card-header">
+            <div class="card-icon">🎬</div>
+            <div class="card-name">영화 추천 챗봇</div>
+          </div>
+          <p class="card-desc">사용자 취향에 맞는 영화 추천 소규모 챗봇. BotHub 기반 시나리오 설계 및 영화 데이터 연동.</p>
+          <div class="card-tags">
+            <span class="tag py">Python</span><span class="tag">BotHub</span>
+          </div>
+          <span class="card-cta">↗ GitHub에서 보기</span>
+        </a>
+
+      </div>
     </div>
-  </div>
 
-  <!-- 추천 & 예측 -->
-  <div class="category">
-    <div class="category-title">추천 시스템 &amp; 예측 분석</div>
-    <div class="cards">
+    <!-- NLP & Text Mining -->
+    <div class="category">
+      <div class="category-title">NLP &amp; Text Mining</div>
+      <div class="cards">
 
-      <a class="card featured" href="https://github.com/ghkd812/seungeun_Lab/tree/main/CUVE_상품추천시스템(실제서비스)" target="_blank" rel="noopener noreferrer">
-        <div class="card-header">
-          <div class="card-icon amber">⭐</div>
-          <div class="card-name">CUVE 상품 추천시스템 (실제 서비스 반영)</div>
-        </div>
-        <p class="card-desc">연관 규칙·룰베이스·컨텐츠 기반 알고리즘 조합으로 실제 여행사 서비스에 반영된 추천시스템. 정확도 측정 SQL 쿼리 및 설계 매뉴얼 포함.</p>
-        <div class="card-tags">
-          <span class="tag r">R</span><span class="tag sql">SQL</span><span class="tag">실서비스</span><span class="tag">Apriori</span>
-        </div>
-        <span class="card-cta">↗ GitHub에서 보기</span>
-      </a>
+        <a class="card" href="https://github.com/ghkd812/seungeun_Lab/tree/main/LDA_TOPIC_MODELING" target="_blank" rel="noopener noreferrer">
+          <div class="card-header">
+            <div class="card-icon">🔍</div>
+            <div class="card-name">LDA 토픽 모델링</div>
+          </div>
+          <p class="card-desc">여행사 고객 리뷰 데이터 LDA 토픽 분류 + 키워드 네트워크 시각화. 불용어 처리·명사 추출 파이프라인 구축. 결과 PPT 포함.</p>
+          <div class="card-tags">
+            <span class="tag py">Python</span><span class="tag nlp">Gensim</span><span class="tag nlp">KoNLPy</span>
+          </div>
+          <span class="card-cta">↗ GitHub에서 보기</span>
+        </a>
 
-      <a class="card" href="https://github.com/ghkd812/seungeun_Lab/tree/main/상품추천관련스터디" target="_blank" rel="noopener noreferrer">
-        <div class="card-header">
-          <div class="card-icon amber">🛍️</div>
-          <div class="card-name">상품 추천 시스템 연구 (Apriori · CF · DT)</div>
-        </div>
-        <p class="card-desc">Apriori 연관 규칙 + 협업 필터링 + 의사결정나무 3가지 알고리즘 비교 연구. 넷플릭스 데이터 적용, 검증 SQL 포함. 발표 자료 3종.</p>
-        <div class="card-tags">
-          <span class="tag r">R</span><span class="tag sql">SQL</span><span class="tag">Apriori</span><span class="tag">CF</span><span class="tag">DT</span>
-        </div>
-        <span class="card-cta">↗ GitHub에서 보기</span>
-      </a>
+        <a class="card" href="https://github.com/ghkd812/seungeun_Lab/tree/main/LDA_TOPIC_MODELING" target="_blank" rel="noopener noreferrer">
+          <div class="card-header">
+            <div class="card-icon pink">💬</div>
+            <div class="card-name">감성 분석</div>
+          </div>
+          <p class="card-desc">고객의소리 게시판 불만 글 긍정/부정 감성 분류. 워드클라우드 및 키워드 네트워크(R)로 시각화.</p>
+          <div class="card-tags">
+            <span class="tag py">Python</span><span class="tag r">R</span><span class="tag nlp">NLP</span>
+          </div>
+          <span class="card-cta">↗ GitHub에서 보기</span>
+        </a>
 
-      <a class="card" href="https://github.com/ghkd812/seungeun_Lab/tree/main/수요예측분석" target="_blank" rel="noopener noreferrer">
-        <div class="card-header">
-          <div class="card-icon amber">📈</div>
-          <div class="card-name">여행 수요 예측 분석</div>
-        </div>
-        <p class="card-desc">여행사 상품별 수요 데이터 전처리·피처 엔지니어링·단계별 예측 모델 구축. 이상치 제거, 모델 업데이트 포함. 7개 Jupyter Notebook.</p>
-        <div class="card-tags">
-          <span class="tag py">Python</span><span class="tag py">Scikit-learn</span><span class="tag">Jupyter</span>
-        </div>
-        <span class="card-cta">↗ GitHub에서 보기</span>
-      </a>
+        <a class="card" href="https://github.com/ghkd812/seungeun_Lab/tree/main/인스타크롤링" target="_blank" rel="noopener noreferrer">
+          <div class="card-header">
+            <div class="card-icon pink">📸</div>
+            <div class="card-name">인스타그램 크롤링 분석</div>
+          </div>
+          <p class="card-desc">제주도 관련 인스타그램 게시물 크롤링 후 해시태그 트렌드 및 텍스트 분석. Jupyter Notebook 파이프라인 구현.</p>
+          <div class="card-tags">
+            <span class="tag py">Python</span><span class="tag nlp">Crawling</span><span class="tag">Jupyter</span>
+          </div>
+          <span class="card-cta">↗ GitHub에서 보기</span>
+        </a>
 
-      <a class="card" href="https://github.com/ghkd812/seungeun_Lab/tree/main/상품추천관련스터디/클러스터링" target="_blank" rel="noopener noreferrer">
-        <div class="card-header">
-          <div class="card-icon amber">🔬</div>
-          <div class="card-name">클러스터링 연구</div>
-        </div>
-        <p class="card-desc">K-means·계층적 클러스터링(hclust)으로 붓꽃·와인·다이아몬드 데이터 분류. Train/Test 검증 포함.</p>
-        <div class="card-tags">
-          <span class="tag r">R</span><span class="tag">K-means</span><span class="tag">Hclust</span>
-        </div>
-        <span class="card-cta">↗ GitHub에서 보기</span>
-      </a>
-
+      </div>
     </div>
-  </div>
 
-  <!-- 데이터 분석 -->
-  <div class="category">
-    <div class="category-title">데이터 분석 &amp; SQL</div>
-    <div class="cards">
+    <!-- 추천 / 예측 / 스터디 -->
+    <div class="category">
+      <div class="category-title">추천 / 예측 / 스터디</div>
+      <div class="cards">
 
-      <a class="card" href="https://github.com/ghkd812/seungeun_Lab/tree/main/자사전체고객데이터분석및동향분석" target="_blank" rel="noopener noreferrer">
-        <div class="card-header">
-          <div class="card-icon green">👥</div>
-          <div class="card-name">자사 전체 고객 데이터 분석 &amp; 동향 분석</div>
-        </div>
-        <p class="card-desc">연령·성별·지역·재구매율·선행예약시점 등 20종 이상 SQL 쿼리 작성. 고객 기초통계 2019·2020 PPT 및 여행동향 분석 리포트 임원 보고.</p>
-        <div class="card-tags">
-          <span class="tag sql">SQL</span><span class="tag py">Python</span><span class="tag">EDA</span><span class="tag">임원 리포팅</span>
-        </div>
-        <span class="card-cta">↗ GitHub에서 보기</span>
-      </a>
+        <a class="card" href="https://github.com/ghkd812/seungeun_Lab/tree/main/상품추천관련스터디" target="_blank" rel="noopener noreferrer">
+          <div class="card-header">
+            <div class="card-icon amber">🛍️</div>
+            <div class="card-name">상품 추천 시스템 연구 (Apriori · CF · DT)</div>
+          </div>
+          <p class="card-desc">Apriori 연관 규칙 + 협업 필터링 + 의사결정나무 3가지 알고리즘 비교 연구. 넷플릭스 데이터 적용, 검증 SQL 포함. 발표 자료 3종.</p>
+          <div class="card-tags">
+            <span class="tag r">R</span><span class="tag sql">SQL</span><span class="tag">Apriori</span><span class="tag">CF</span>
+          </div>
+          <span class="card-cta">↗ GitHub에서 보기</span>
+        </a>
 
-      <a class="card" href="https://github.com/ghkd812/seungeun_Lab/tree/main/라오스지역분석" target="_blank" rel="noopener noreferrer">
-        <div class="card-header">
-          <div class="card-icon green">🌏</div>
-          <div class="card-name">라오스 지역 관광 추세 분석</div>
-        </div>
-        <p class="card-desc">DB에서 예약 데이터를 직접 추출해 라오스 관광 추세 분석. 예약 시점·방문 횟수·연령·성별·이용가격 변화 추이 분석 후 발표 PPT 작성. 입사 후 첫 독립 프로젝트.</p>
-        <div class="card-tags">
-          <span class="tag sql">SQL</span><span class="tag">EDA</span><span class="tag">임원 보고</span>
-        </div>
-        <span class="card-cta">↗ GitHub에서 보기</span>
-      </a>
+        <a class="card" href="https://github.com/ghkd812/seungeun_Lab/tree/main/수요예측분석" target="_blank" rel="noopener noreferrer">
+          <div class="card-header">
+            <div class="card-icon amber">📈</div>
+            <div class="card-name">여행 수요 예측 분석</div>
+          </div>
+          <p class="card-desc">여행사 상품별 수요 데이터 전처리·피처 엔지니어링·예측 모델 구축. 이상치 제거, 모델 업데이트 포함. 7개 Jupyter Notebook.</p>
+          <div class="card-tags">
+            <span class="tag py">Python</span><span class="tag py">Scikit-learn</span><span class="tag">Jupyter</span>
+          </div>
+          <span class="card-cta">↗ GitHub에서 보기</span>
+        </a>
 
-      <a class="card" href="https://github.com/ghkd812/seungeun_Lab/tree/main/여행트렌드분석" target="_blank" rel="noopener noreferrer">
-        <div class="card-header">
-          <div class="card-icon green">✈️</div>
-          <div class="card-name">여행 트렌드 분석</div>
-        </div>
-        <p class="card-desc">지역별·국가별·도시별 인기 상품 및 출발자 수 추이 SQL 분석. 여행트렌드 PPT 보고서 작성.</p>
-        <div class="card-tags">
-          <span class="tag sql">SQL</span><span class="tag">트렌드 분석</span>
-        </div>
-        <span class="card-cta">↗ GitHub에서 보기</span>
-      </a>
+        <a class="card" href="https://github.com/ghkd812/seungeun_Lab/tree/main/상품추천관련스터디/클러스터링" target="_blank" rel="noopener noreferrer">
+          <div class="card-header">
+            <div class="card-icon amber">🔬</div>
+            <div class="card-name">클러스터링 연구</div>
+          </div>
+          <p class="card-desc">K-means·계층적 클러스터링(hclust)으로 붓꽃·와인·다이아몬드 데이터 분류. Train/Test 검증 포함.</p>
+          <div class="card-tags">
+            <span class="tag r">R</span><span class="tag">K-means</span><span class="tag">Hclust</span>
+          </div>
+          <span class="card-cta">↗ GitHub에서 보기</span>
+        </a>
 
-      <a class="card" href="https://github.com/ghkd812/seungeun_Lab/tree/main/Restaurant_분석결과" target="_blank" rel="noopener noreferrer">
-        <div class="card-header">
-          <div class="card-icon teal">🍽️</div>
-          <div class="card-name">레스토랑 데이터 분석 (Kaggle 스터디)</div>
-        </div>
-        <p class="card-desc">Kaggle 레스토랑 데이터를 5개 Jupyter Notebook으로 단계별 탐색적 분석 수행.</p>
-        <div class="card-tags">
-          <span class="tag py">Python</span><span class="tag">Jupyter</span><span class="tag">Kaggle</span><span class="tag">EDA</span>
-        </div>
-        <span class="card-cta">↗ GitHub에서 보기</span>
-      </a>
+        <a class="card" href="https://github.com/ghkd812/seungeun_Lab/tree/main/Restaurant_분석결과" target="_blank" rel="noopener noreferrer">
+          <div class="card-header">
+            <div class="card-icon teal">🍽️</div>
+            <div class="card-name">레스토랑 데이터 분석 (Kaggle)</div>
+          </div>
+          <p class="card-desc">Kaggle 레스토랑 데이터를 5개 Jupyter Notebook으로 단계별 탐색적 분석 수행.</p>
+          <div class="card-tags">
+            <span class="tag py">Python</span><span class="tag">Jupyter</span><span class="tag">Kaggle</span>
+          </div>
+          <span class="card-cta">↗ GitHub에서 보기</span>
+        </a>
 
-      <a class="card" href="https://github.com/ghkd812/seungeun_Lab/tree/main/자전거" target="_blank" rel="noopener noreferrer">
-        <div class="card-header">
-          <div class="card-icon teal">🚲</div>
-          <div class="card-name">자전거 수요 분석 (Kaggle 스터디)</div>
-        </div>
-        <p class="card-desc">Kaggle 자전거 공유 서비스 수요 패턴 분석. 시간대·날씨 등 변수별 영향도 분석.</p>
-        <div class="card-tags">
-          <span class="tag py">Python</span><span class="tag">Jupyter</span><span class="tag">Kaggle</span>
-        </div>
-        <span class="card-cta">↗ GitHub에서 보기</span>
-      </a>
+        <a class="card" href="https://github.com/ghkd812/seungeun_Lab/tree/main/자전거" target="_blank" rel="noopener noreferrer">
+          <div class="card-header">
+            <div class="card-icon teal">🚲</div>
+            <div class="card-name">자전거 수요 분석 (Kaggle)</div>
+          </div>
+          <p class="card-desc">Kaggle 자전거 공유 서비스 수요 패턴 분석. 시간대·날씨 등 변수별 영향도 분석.</p>
+          <div class="card-tags">
+            <span class="tag py">Python</span><span class="tag">Jupyter</span><span class="tag">Kaggle</span>
+          </div>
+          <span class="card-cta">↗ GitHub에서 보기</span>
+        </a>
 
+      </div>
     </div>
-  </div>
 
-  <!-- 경쟁사 크롤링 -->
-  <div class="category">
-    <div class="category-title">경쟁사 크롤링 &amp; 비교 분석</div>
-    <div class="cards">
+    <!-- 경쟁사 분석 & 기획 리서치 -->
+    <div class="category">
+      <div class="category-title">경쟁사 분석 &amp; 기획 리서치</div>
+      <div class="cards">
 
-      <a class="card" href="https://github.com/ghkd812/seungeun_Lab/tree/main/경쟁사크롤링비교분석" target="_blank" rel="noopener noreferrer">
-        <div class="card-header">
-          <div class="card-icon rose">🌍</div>
-          <div class="card-name">노랑풍선 경쟁사 크롤링 분석 (5개 지역)</div>
-        </div>
-        <p class="card-desc">Scrapy 기반 경쟁사(노랑풍선) 상품 크롤링. 유럽·일본·태국·필리핀·홍콩 5개 지역 가격·상품 구조 비교 분석 보고서 5종 작성.</p>
-        <div class="card-tags">
-          <span class="tag py">Python</span><span class="tag nlp">Scrapy</span><span class="tag">5개 지역</span><span class="tag">가격 분석</span>
-        </div>
-        <span class="card-cta">↗ GitHub에서 보기</span>
-      </a>
+        <a class="card" href="https://github.com/ghkd812/seungeun_Lab/tree/main/경쟁사크롤링비교분석" target="_blank" rel="noopener noreferrer">
+          <div class="card-header">
+            <div class="card-icon rose">🌍</div>
+            <div class="card-name">노랑풍선 경쟁사 크롤링 분석 (5개 지역)</div>
+          </div>
+          <p class="card-desc">Scrapy 기반 경쟁사(노랑풍선) 상품 크롤링. 유럽·일본·태국·필리핀·홍콩 5개 지역 가격·상품 구조 비교 분석 보고서 5종.</p>
+          <div class="card-tags">
+            <span class="tag py">Python</span><span class="tag nlp">Scrapy</span><span class="tag">가격 분석</span>
+          </div>
+          <span class="card-cta">↗ GitHub에서 보기</span>
+        </a>
 
+        <a class="card" href="https://github.com/ghkd812/seungeun_Lab/tree/main/라오스지역분석" target="_blank" rel="noopener noreferrer">
+          <div class="card-header">
+            <div class="card-icon green">🌏</div>
+            <div class="card-name">라오스 지역 관광 추세 분석</div>
+          </div>
+          <p class="card-desc">DB에서 예약 데이터를 직접 추출해 라오스 관광 추세 분석. 예약 시점·방문 횟수·연령·성별·이용가격 변화 추이를 분석 후 발표 PPT 작성.</p>
+          <div class="card-tags">
+            <span class="tag sql">SQL</span><span class="tag">EDA</span><span class="tag">임원 보고</span>
+          </div>
+          <span class="card-cta">↗ GitHub에서 보기</span>
+        </a>
+
+        <a class="card" href="https://github.com/ghkd812/seungeun_Lab/tree/main/여행트렌드분석" target="_blank" rel="noopener noreferrer">
+          <div class="card-header">
+            <div class="card-icon green">✈️</div>
+            <div class="card-name">여행 트렌드 분석</div>
+          </div>
+          <p class="card-desc">지역별·국가별·도시별 인기 상품 및 출발자 수 추이 SQL 분석. 여행트렌드 PPT 보고서 작성.</p>
+          <div class="card-tags">
+            <span class="tag sql">SQL</span><span class="tag">트렌드 분석</span>
+          </div>
+          <span class="card-cta">↗ GitHub에서 보기</span>
+        </a>
+
+        <a class="card" href="https://github.com/ghkd812/seungeun_Lab/tree/main/기획문서모음/여행트렌드페이지모음" target="_blank" rel="noopener noreferrer">
+          <div class="card-header">
+            <div class="card-icon">🏖️</div>
+            <div class="card-name">여행 트렌드 페이지 기획 (6종)</div>
+          </div>
+          <p class="card-desc">2020~2021년 여행 트렌드 분석 콘텐츠 기획안 시리즈 6개 버전. 데이터 기반 트렌드 도출 및 기획서 작성.</p>
+          <div class="card-tags">
+            <span class="tag plan">기획</span><span class="tag">트렌드 분석</span>
+          </div>
+          <span class="card-cta">↗ GitHub에서 보기</span>
+        </a>
+
+        <a class="card" href="https://github.com/ghkd812/seungeun_Lab/tree/main/기획문서모음" target="_blank" rel="noopener noreferrer">
+          <div class="card-header">
+            <div class="card-icon amber">🛒</div>
+            <div class="card-name">참좋은 호텔 / 마켓 서비스 기획</div>
+          </div>
+          <p class="card-desc">여행사 커머스 플랫폼 기획. PC·모바일 화면정의서, 가상계좌 결제, ERP 연동 기획. 호텔 개편 화면 단독 기획.</p>
+          <div class="card-tags">
+            <span class="tag plan">기획</span><span class="tag">UI/UX</span><span class="tag plan">화면정의서</span><span class="tag">ERP</span>
+          </div>
+          <span class="card-cta">↗ GitHub에서 보기</span>
+        </a>
+
+        <a class="card" href="https://github.com/ghkd812/seungeun_Lab/tree/main/기획문서모음/트렌드페이지기획" target="_blank" rel="noopener noreferrer">
+          <div class="card-header">
+            <div class="card-icon teal">📱</div>
+            <div class="card-name">CUVE 모바일 화면정의서</div>
+          </div>
+          <p class="card-desc">큐비(CUVE) 서비스 모바일 화면정의서 v0.6 작성. 동반자 유형별 맞춤검색 쿼리 설계 포함.</p>
+          <div class="card-tags">
+            <span class="tag plan">화면정의서</span><span class="tag sql">SQL</span><span class="tag">모바일</span>
+          </div>
+          <span class="card-cta">↗ GitHub에서 보기</span>
+        </a>
+
+      </div>
     </div>
-  </div>
 
-  <!-- AI Chatbot -->
-  <div class="category">
-    <div class="category-title">AI Chatbot / NLP 기반 챗봇 Development</div>
-    <div class="cards">
-
-      <a class="card featured" href="https://github.com/ghkd812/AICHAT" target="_blank" rel="noopener noreferrer">
-        <div class="card-header">
-          <div class="card-icon">🤖</div>
-          <div class="card-name">AICHAT — Hazel (업무용 개인 AI 어시스턴트)</div>
-        </div>
-        <p class="card-desc">
-          업무 생산성을 높이기 위한 개인 AI 어시스턴트. GPT-4o·o3·DALL-E 멀티모델 지원, PDF·DOCX·PPTX·Excel 파일 분석, 네이버 검색 API 연동, MongoDB RAG 구현.
-          로그인·세션 관리·대화 히스토리·실시간 스트리밍 응답까지 풀스택으로 직접 개발.
-        </p>
-        <div class="card-tags">
-          <span class="tag ai">GPT-4o</span><span class="tag ai">OpenAI API</span><span class="tag py">Python</span><span class="tag py">Streamlit</span><span class="tag sql">MongoDB</span><span class="tag">RAG</span><span class="tag">DALL-E</span>
-        </div>
-        <span class="card-cta">↗ GitHub에서 보기</span>
-      </a>
-
-      <a class="card" href="https://github.com/ghkd812/seungeun_Lab/tree/main/기획문서모음/여행가이드봇시나리오기획" target="_blank" rel="noopener noreferrer">
-        <div class="card-header">
-          <div class="card-icon pink">🗺️</div>
-          <div class="card-name">큐비 여행 가이드 챗봇 기획</div>
-        </div>
-        <p class="card-desc">KoNLPy·MongoDB 활용 대화형 여행 검색 챗봇 BETA 기획. 시나리오 설계, Train SQL, 큐비 기획문서 작성 포함.</p>
-        <div class="card-tags">
-          <span class="tag py">Python</span><span class="tag nlp">KoNLPy</span><span class="tag sql">MongoDB</span><span class="tag plan">기획</span>
-        </div>
-        <span class="card-cta">↗ GitHub에서 보기</span>
-      </a>
-
-      <a class="card" href="https://github.com/ghkd812/seungeun_Lab/tree/main/Chatbot" target="_blank" rel="noopener noreferrer">
-        <div class="card-header">
-          <div class="card-icon">✈️</div>
-          <div class="card-name">텔레그램 여행 챗봇</div>
-        </div>
-        <p class="card-desc">NLP 기반 여행사 고객 서비스 챗봇. 항공·호텔 예약 안내, 캘린더 UI, 인라인 키보드 구현. Telegram Bot API + pymssql DB 연동.</p>
-        <div class="card-tags">
-          <span class="tag py">Python</span><span class="tag nlp">NLP</span><span class="tag">Telegram API</span>
-        </div>
-        <span class="card-cta">↗ GitHub에서 보기</span>
-      </a>
-
-      <a class="card" href="https://github.com/ghkd812/seungeun_Lab/tree/main/SMALLMovieFriendBot" target="_blank" rel="noopener noreferrer">
-        <div class="card-header">
-          <div class="card-icon">🎬</div>
-          <div class="card-name">영화 추천 챗봇</div>
-        </div>
-        <p class="card-desc">사용자 취향에 맞는 영화 추천 소규모 챗봇. BotHub 기반 시나리오 설계 및 영화 데이터 연동.</p>
-        <div class="card-tags">
-          <span class="tag py">Python</span><span class="tag">BotHub</span>
-        </div>
-        <span class="card-cta">↗ GitHub에서 보기</span>
-      </a>
-
-    </div>
-  </div>
-
-  <!-- 기획 & 리서치 -->
-  <div class="category">
-    <div class="category-title">기획 &amp; 리서치</div>
-    <div class="cards">
-
-      <a class="card" href="https://github.com/ghkd812/seungeun_Lab/tree/main/기획문서모음/여행트렌드페이지모음" target="_blank" rel="noopener noreferrer">
-        <div class="card-header">
-          <div class="card-icon">🏖️</div>
-          <div class="card-name">여행 트렌드 페이지 기획 (6종)</div>
-        </div>
-        <p class="card-desc">2020~2021년 여행 트렌드 분석 콘텐츠 기획안 시리즈 6개 버전. 데이터 기반 트렌드 도출 및 기획서 작성.</p>
-        <div class="card-tags">
-          <span class="tag plan">기획</span><span class="tag">트렌드 분석</span>
-        </div>
-        <span class="card-cta">↗ GitHub에서 보기</span>
-      </a>
-
-      <a class="card" href="https://github.com/ghkd812/seungeun_Lab/tree/main/기획문서모음" target="_blank" rel="noopener noreferrer">
-        <div class="card-header">
-          <div class="card-icon amber">🛒</div>
-          <div class="card-name">참좋은 호텔 / 마켓 서비스 및 화면 기획</div>
-        </div>
-        <p class="card-desc">여행사 커머스 플랫폼 기획. PC·모바일 화면정의서, 가상계좌 결제, ERP 연동 기획. 호텔 개편 모바일 화면 기획 단독 진행.</p>
-        <div class="card-tags">
-          <span class="tag plan">기획</span><span class="tag">UI/UX</span><span class="tag">화면정의서</span><span class="tag">ERP</span>
-        </div>
-        <span class="card-cta">↗ GitHub에서 보기</span>
-      </a>
-
-      <a class="card" href="https://github.com/ghkd812/seungeun_Lab/tree/main/기획문서모음/트렌드페이지기획" target="_blank" rel="noopener noreferrer">
-        <div class="card-header">
-          <div class="card-icon teal">📱</div>
-          <div class="card-name">CUVE 모바일 화면정의서</div>
-        </div>
-        <p class="card-desc">큐비(CUVE) 서비스 모바일 화면정의서 v0.6 작성. 동반자 유형별 맞춤검색 쿼리 설계 포함.</p>
-        <div class="card-tags">
-          <span class="tag plan">화면정의서</span><span class="tag sql">SQL</span><span class="tag">모바일</span>
-        </div>
-        <span class="card-cta">↗ GitHub에서 보기</span>
-      </a>
-
-
-    </div>
-  </div>
-
+  </div><!-- /other-projects-content -->
 </section>
 
 <!-- CONTACT -->
@@ -760,7 +719,7 @@
   </div>
   <div class="contact-box">
     <h3>함께 일하고 싶으신가요?</h3>
-    <p>IT 기획, 데이터 분석, AI 개발 관련 문의는 언제든지 환영합니다.</p>
+    <p>IT 기획, 데이터 분석, 서비스 설계 관련 문의는 언제든지 환영합니다.</p>
     <div class="contact-links">
       <a href="https://github.com/ghkd812/seungeun_Lab" target="_blank" class="contact-link">
         <svg width="17" height="17" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222 0 1.606-.015 2.896-.015 3.286 0 .315.216.694.825.576C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12z"/></svg>
@@ -770,9 +729,9 @@
         <svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
         yeoeun02@naver.com
       </a>
-      <a href="tel:010-4088-0659" class="contact-link">
-        <svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.07 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3 2.18h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L7.09 9.91a16 16 0 0 0 6 6l1.09-1.09a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-        010-4088-0659
+      <a href="https://ghkd812.github.io/seungeun_Lab/" target="_blank" class="contact-link">
+        <svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+        Portfolio
       </a>
     </div>
   </div>
@@ -802,9 +761,9 @@
   document.querySelectorAll('section, .hero-wrap').forEach(s => io.observe(s));
 
   // 카드 등장 애니메이션
-  const style = document.createElement('style');
-  style.textContent = '.card { opacity: 0; transform: translateY(14px); transition: opacity .38s ease, transform .38s ease, box-shadow .25s, border-color .25s !important; } .card.in { opacity: 1 !important; transform: translateY(0) !important; }';
-  document.head.appendChild(style);
+  const cardStyle = document.createElement('style');
+  cardStyle.textContent = '.card { opacity: 0; transform: translateY(14px); transition: opacity .38s ease, transform .38s ease, box-shadow .25s, border-color .25s !important; } .card.in { opacity: 1 !important; transform: translateY(0) !important; }';
+  document.head.appendChild(cardStyle);
   const co = new IntersectionObserver(entries => {
     entries.forEach((e, i) => {
       if (e.isIntersecting) {
@@ -814,6 +773,29 @@
     });
   }, { threshold: 0.08 });
   document.querySelectorAll('.card').forEach(c => co.observe(c));
+
+  // 기타 프로젝트 토글
+  function toggleOtherProjects() {
+    const btn = document.getElementById('toggleBtn');
+    const content = document.getElementById('otherProjects');
+    const isOpen = content.classList.contains('open');
+    const text = btn.querySelector('.toggle-text');
+    const count = btn.querySelector('.toggle-count');
+
+    if (isOpen) {
+      content.classList.remove('open');
+      btn.classList.remove('open');
+      text.textContent = '기타 데이터 분석 / NLP / 스터디 프로젝트 더보기';
+      count.textContent = '+17';
+    } else {
+      content.classList.add('open');
+      btn.classList.add('open');
+      text.textContent = '기타 프로젝트 접기';
+      count.textContent = '닫기';
+      // 새로 보이는 카드 애니메이션 등록
+      content.querySelectorAll('.card:not(.in)').forEach(c => co.observe(c));
+    }
+  }
 </script>
 
 </body>
